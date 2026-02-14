@@ -2,34 +2,33 @@
 
 End-to-end automation that provisions structured client workspaces in Google Drive using API-driven workflows and batch HTTP requests.
 
-This project was developed as part of the TripleTen AI Automation Program.
+Developed as part of the TripleTen AI Automation Program.
 
 ---
 
-## 📂 Project Documentation
+## Project Documentation
 
-- 📄 Full project PDF (architecture, API logic, and outcomes)  
-- 🔗 [View Automated Client Provisioning Project PDF](https://drive.google.com/file/d/1RrHpvq1PIrJwDy3V4Rt6QMsTGb8Cq_nO/view?usp=drive_link)
+- [View Project Documentation (PDF)](https://drive.google.com/file/d/1RrHpvq1PIrJwDy3V4Rt6QMsTGb8Cq_nO/view?usp=drive_link)
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
-This automation instantly generates a fully structured Google Drive workspace after a new client onboarding submission.
+This automation generates a fully structured Google Drive workspace immediately after a new client onboarding submission.
 
 The system:
 
 - Creates a dedicated client folder  
 - Places it within a centralized directory  
 - Replicates predefined templates using batch API requests  
-- Applies a standardized folder architecture  
-- Prepares the environment for immediate operational use  
+- Applies a standardized folder hierarchy  
+- Prepares the environment for operational use  
 
 The workflow transforms onboarding into scalable infrastructure.
 
 ---
 
-## 🚨 Business Problem
+## Business Problem
 
 Client onboarding often requires manual workspace preparation:
 
@@ -38,72 +37,62 @@ Client onboarding often requires manual workspace preparation:
 - Copying onboarding documents  
 - Organizing trackers and resources  
 
-This process is time-intensive, error-prone, difficult to scale, and operationally inefficient.
-
-As client volume grows, these inefficiencies delay project kickoff.
+This process is time-intensive, error-prone, and difficult to scale. As client volume increases, onboarding delays impact operational efficiency.
 
 ---
 
-## 💡 Solution Summary
+## Solution Summary
 
-An automated provisioning workflow built with:
+The automation system consists of:
 
-1. **Google Forms** — captures onboarding requests  
-2. **Zapier** — orchestrates automation flow  
-3. **Google Drive API** — creates folders programmatically  
-4. **Batch HTTP Requests** — replicates templates efficiently  
-5. **Dynamic Folder Provisioning** — enforces consistent structure  
+1. Google Forms — captures onboarding requests  
+2. Zapier — orchestrates workflow execution  
+3. Google Drive API — creates folders programmatically  
+4. Batch HTTP requests — replicate templates efficiently  
+5. Structured folder provisioning — enforces standardized architecture  
 
-The system provisions a ready-to-use client workspace instantly.
+The system provisions a ready-to-use client workspace automatically.
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Zapier — workflow orchestration  
-- Google Drive API — folder & file operations  
-- Google Forms — data collection trigger  
+- Google Drive API — folder and file operations  
+- Google Forms — data capture  
 - REST APIs — programmatic control  
-- Batch HTTP Requests — template replication  
+- Batch HTTP requests — template replication  
 - Scalable system design principles  
 
 ---
 
-## 🔁 Workflow Architecture
+## Workflow Architecture
 
-Form Submission → Folder Creation → Batch Template Replication → Structure Enforcement → Ready Workspace
+Form Submission → Folder Creation → Batch Replication → Structure Enforcement → Ready Workspace
 
 1. Client onboarding form submitted  
 2. Dedicated Google Drive folder generated  
-3. Batch API requests replicate templates  
-4. Folder structure standardized  
+3. Batch API requests replicate required templates  
+4. Folder hierarchy standardized  
 5. Workspace prepared for collaboration  
 
 ---
 
-## 📊 Key Outcomes
+## Key Outcomes
 
 - Fully automated client provisioning  
 - Eliminated repetitive onboarding tasks  
-- Dramatically reduced setup time  
+- Reduced setup time  
 - Standardized client environments  
 - Built scalable operational infrastructure  
 
 ---
 
-## 🎯 Skills Demonstrated
+## Skills Demonstrated
 
-- API integration & orchestration  
+- API integration and orchestration  
 - Batch request handling  
 - Cloud automation architecture  
 - Workflow engineering  
 - Scalable system design  
 - Operational process automation  
-
----
-
-## 👤 Author
-
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
