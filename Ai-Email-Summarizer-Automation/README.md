@@ -2,7 +2,7 @@
 
 Automated email-processing system that analyzes incoming Gmail messages, summarizes content using large language models, applies conditional classification logic, and stores structured summaries in Google Sheets.
 
-This project was developed as part of the TripleTen AI Automation Program.
+Developed as part of the TripleTen AI Automation Program.
 
 ---
 
@@ -43,7 +43,7 @@ These challenges reduce productivity and increase cognitive load.
 
 The automation system consists of:
 
-1. Gmail Trigger — detects new incoming emails  
+1. Gmail trigger — detects new incoming emails  
 2. AI model (LLM) — summarizes content and extracts key details  
 3. Conditional filtering logic — evaluates emails against predefined criteria  
 4. Path routing — processes emails based on classification  
@@ -89,11 +89,3 @@ Gmail → AI Analysis → Conditional Filter → Path Routing → Structured Sto
 - Automation architecture design  
 - Business process optimization  
 - Structured data pipeline development  
-
----
-
-## Author
-
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
