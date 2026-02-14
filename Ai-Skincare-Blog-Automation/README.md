@@ -1,90 +1,91 @@
 # AI-Powered Skincare Weekly Blog Automation
 
-End-to-end AI content automation system that researches, generates, refines, and structures weekly skincare blog posts using AI and workflow orchestration tools.
+End-to-end AI content automation system that researches, generates, refines, and structures weekly skincare blog posts using workflow orchestration and large language models.
 
-This project was developed as part of the TripleTen AI Automation Program.
-
----
-
-## 📂 Project Documentation
-
-- 📄 Full project PDF (design, workflow logic, and outcomes)  
-- 🔗 [View AI Skincare Blog Automation PDF](https://drive.google.com/file/d/1ORNBRVcVXtYmo7Ng7UDOnI9WQJyGsIAC/view?usp=drive_link)
+Developed as part of the TripleTen AI Automation Program.
 
 ---
 
-## 🧠 Project Overview
+## Project Documentation
+
+- [View Project Documentation (PDF)](https://drive.google.com/file/d/1ORNBRVcVXtYmo7Ng7UDOnI9WQJyGsIAC/view?usp=drive_link)
+
+---
+
+## Project Overview
 
 This automation replaces a fully manual weekly blog creation process by:
 
-- Pulling blog topics and keywords from Google Sheets  
-- Researching skincare topics using AI  
-- Generating structured long-form blog content  
+- Retrieving blog topics and keywords from Google Sheets  
+- Researching skincare themes using an AI model  
+- Generating structured long-form content  
 - Refining clarity, tone, and formatting automatically  
-- Writing publish-ready content back into Google Sheets  
+- Writing publish-ready posts back into Google Sheets  
 
-The system demonstrates scalable AI-driven content production.
+The system demonstrates scalable, AI-driven content production.
 
 ---
 
-## 🚨 Business Problem
+## Business Problem
 
-Creating weekly skincare content requires:
+Producing consistent weekly content requires:
 
 - Ongoing topic research  
 - Clear and accurate writing  
-- Consistent tone and formatting  
-- Repeating the same workflow weekly  
+- Structured formatting  
+- Repeating the same workflow regularly  
 
-Manual execution is time-consuming and difficult to scale.
-
----
-
-## 💡 Solution Summary
-
-An automated workflow built with:
-
-1. **Google Sheets** — stores blog topics and control fields  
-2. **Make (Integromat)** — orchestrates automation flow  
-3. **AI (Gemini / LLM)** — researches and generates content  
-4. **Prompt Engineering** — modular, role-based AI instructions  
-5. **Structured Output** — final blog post written back to Sheets  
+Manual execution is time-consuming, inconsistent, and difficult to scale.
 
 ---
 
-## 🛠 Tech Stack
+## Solution Summary
 
-- Make (Integromat) — automation orchestration  
+The automation system consists of:
+
+1. Google Sheets — stores topics and control fields  
+2. Make (Integromat) — orchestrates workflow execution  
+3. AI model (Gemini / LLM) — performs research and content generation  
+4. Prompt engineering — enforces structured, role-based outputs  
+5. Structured output — final blog post written back to Sheets  
+
+---
+
+## Tech Stack
+
+- Make (Integromat) — workflow orchestration  
 - Google Sheets — structured control layer  
-- Google Gemini AI — content generation  
-- Prompt Engineering — step-specific prompts  
+- Gemini / LLM — content generation and reasoning  
+- Prompt engineering — structured output design  
 
 ---
 
-## 🔁 Workflow Architecture
+## Workflow Architecture
 
-Trigger → Topic Retrieval → AI Research → Draft Generation → Refinement → Output
+Trigger → Topic Retrieval → AI Research → Draft Generation → Refinement → Structured Output
 
-1. Weekly or manual trigger inside Make  
+1. Weekly or manual trigger executed  
 2. Blog topics retrieved from Google Sheets  
-3. AI expands skincare themes  
+3. AI expands and researches themes  
 4. Structured draft generated  
-5. Tone and clarity refinement  
-6. Final post written back to Sheets  
+5. Tone and clarity refinement applied  
+6. Final post written back to Google Sheets  
 
 ---
 
-## 📊 Key Outcomes
+## Key Outcomes
 
 - Fully automated weekly blog creation  
 - Consistent content structure and tone  
-- Reduced manual research time  
-- Scalable content production system  
+- Reduced manual research and writing time  
+- Scalable content production framework  
 
 ---
 
-## 👤 Author
+## Skills Demonstrated
 
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
+- LLM-driven content generation  
+- Workflow automation architecture  
+- Prompt engineering strategy  
+- Structured data pipeline design  
+- Scalable content system development  
