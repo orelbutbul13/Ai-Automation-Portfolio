@@ -1,96 +1,97 @@
 # AI Expense Tracker Automation
 
-AI-powered expense tracking system that captures Telegram messages, extracts structured financial data using AI, and stores clean records in Google Sheets.
+AI-powered expense tracking system that captures Telegram messages, extracts structured financial data using large language models, and stores clean records in Google Sheets.
 
 This project was developed as part of the TripleTen AI Automation Program.
 
 ---
 
-## 📂 Project Documentation
+## Project Documentation
 
-- 📄 Full project PDF (design, workflow, extraction logic, and outcomes)  
-- 🔗 [View AI Expense Tracker Automation PDF](https://drive.google.com/file/d/1a7dLLtall2f6Oo45Y6I07zZdmf6KGZ44/view?usp=drive_link)
+- [View Project Documentation (PDF)](https://drive.google.com/file/d/1a7dLLtall2f6Oo45Y6I07zZdmf6KGZ44/view?usp=drive_link)
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
 This automation enables real-time expense logging by:
 
 - Receiving expense entries via Telegram  
-- Extracting financial details using AI  
+- Extracting structured financial fields using an AI model  
 - Categorizing each transaction automatically  
-- Writing structured rows into Google Sheets  
+- Writing structured records into Google Sheets  
 
-The system converts unstructured text into analysis-ready financial data.
+The system converts unstructured text into analysis-ready financial data suitable for tracking and reporting.
 
 ---
 
-## 🚨 Business Problem
+## Business Problem
 
 Manual expense tracking is inefficient and error-prone:
 
-- Users forget transactions  
+- Transactions are forgotten  
 - Receipts are lost  
 - Expenses are misclassified  
 - Financial records become incomplete  
 
-This results in unreliable datasets and poor visibility.
+These inefficiencies reduce visibility and compromise data accuracy.
 
 ---
 
-## 💡 Solution Summary
+## Solution Summary
 
-An automated workflow built with:
+The automation system consists of:
 
-1. **Telegram Bot API** — captures expense entries  
-2. **Zapier Webhooks** — manages data flow  
-3. **AI by Zapier (LLM)** — extracts structured fields  
-4. **Google Sheets** — stores analysis-ready records  
+1. Telegram Bot API — captures expense entries  
+2. Webhook processing (Zapier) — manages incoming data  
+3. AI model (LLM) — extracts amount, category, and metadata  
+4. Google Sheets — stores structured financial records  
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Telegram Bot API — input capture  
-- Zapier — automation orchestration  
-- AI by Zapier — LLM-based extraction  
-- CloudConvert — file handling  
-- Google Sheets — structured storage  
+- Zapier — workflow orchestration  
+- AI by Zapier (LLM) — structured data extraction  
+- CloudConvert — file handling and preprocessing  
+- Google Sheets — structured data storage  
 
 ---
 
-## 🔁 Workflow Architecture
+## Workflow Architecture
 
-Telegram → Webhooks → AI Extraction → Categorization → Google Sheets
+Telegram → Webhook Processing → AI Extraction → Categorization → Structured Storage
 
 1. Telegram message received  
-2. Webhook preprocessing  
-3. AI extracts amount, category, and details  
-4. Structured row created in Google Sheets  
+2. Webhook processes incoming data  
+3. AI extracts financial details  
+4. Categorization applied  
+5. Structured row written to Google Sheets  
 
 ---
 
-## 📊 Key Outcomes
+## Key Outcomes
 
 - Automated expense logging  
-- Clean structured financial dataset  
-- Real-time expense capture  
+- Clean, structured financial dataset  
+- Real-time transaction capture  
 - Reduced manual data entry  
-- Scalable automation system  
+- Scalable automation framework  
 
 ---
 
-## 🎯 Skills Demonstrated
+## Skills Demonstrated
 
-- LLM data extraction  
+- LLM-driven data extraction  
 - Workflow automation architecture  
-- Structured data pipeline creation  
-- Financial data processing  
+- Structured data pipeline design  
+- Financial process automation  
+- Operational efficiency optimization  
 
 ---
 
-## 👤 Author
+## Author
 
 Orel Butbul  
 AI Automation Specialist | Business Intelligence Analyst  
