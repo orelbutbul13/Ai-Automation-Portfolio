@@ -1,8 +1,8 @@
 # AI Automation Engineering Portfolio
 
-Portfolio of automation systems developed during the TripleTen AI Automation Program.
+Collection of automation systems designed and implemented using workflow orchestration, API integrations, and large language models.
 
-These projects demonstrate workflow orchestration, API integrations, AI reasoning, prompt engineering, structured data pipelines, and scalable automation architecture.
+These projects demonstrate scalable automation architecture, structured data pipelines, AI-assisted decision logic, and operational process optimization.
 
 ---
 
@@ -10,31 +10,22 @@ These projects demonstrate workflow orchestration, API integrations, AI reasonin
 
 | # | Project | Description |
 |---|---------|-------------|
-| 1 | [AI Customer Feedback Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Customer-Feedback-Automation) | AI-powered workflow that analyzes customer feedback, extracts sentiment and intent, and generates brand-aligned email responses automatically. |
-| 2 | [AI Expense Tracker Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Expense-Tracker-Automation) | Telegram-based automation that extracts financial data using AI and stores structured expense records in Google Sheets. |
-| 3 | [AI Email Summarizer Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Email-Summarizer-Automation) | Automated email-processing system that summarizes incoming Gmail messages, applies conditional logic, and stores structured insights. |
-| 4 | [AI Skincare Blog Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Skincare-Blog-Automation) | Weekly AI content automation system that researches, generates, refines, and structures long-form blog posts. |
-| 5 | [Automated Client Provisioning System](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Automated-Client-Provisioning-System) | API-driven Google Drive automation that provisions structured client workspaces using batch HTTP requests. |
-| 6 | [Weather-Based Sales & Staffing Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Weather-Based-Sales-Staffing-Automation) | Automation that uses weather API and AI reasoning to generate proactive sales and staffing recommendations. |
+| 1 | [AI Customer Feedback Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Customer-Feedback-Automation) | Workflow that analyzes customer feedback using LLMs, extracts sentiment and intent, and generates structured, brand-aligned email responses. |
+| 2 | [AI Expense Tracker Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Expense-Tracker-Automation) | Telegram-based automation that extracts structured financial data using LLMs and stores analysis-ready records in Google Sheets. |
+| 3 | [AI Email Summarizer Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Email-Summarizer-Automation) | Email processing system that summarizes incoming Gmail messages, applies conditional logic, and stores structured summaries. |
+| 4 | [AI Skincare Blog Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Ai-Skincare-Blog-Automation) | Automated content system that researches, generates, refines, and structures long-form blog posts using LLM-based workflows. |
+| 5 | [Automated Client Provisioning System](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Automated-Client-Provisioning-System) | API-driven Google Drive automation that provisions structured client workspaces using batch HTTP requests and standardized folder architecture. |
+| 6 | [Weather-Based Sales & Staffing Automation](https://github.com/orbu13/AI-Automation-Engineering-Portfolio/tree/main/Weather-Based-Sales-Staffing-Automation) | Automation that integrates real-time weather APIs and AI reasoning to generate proactive sales and staffing recommendations. |
 
 ---
 
-## Core Skills Demonstrated
+## Core Competencies
 
-- Workflow automation architecture  
-- API integration and orchestration  
-- LLM prompt engineering and design  
+- Automation architecture and workflow orchestration  
+- API integration and external data ingestion  
+- Large language model (LLM) prompt engineering  
 - Conditional logic and workflow routing  
-- External data processing (API ingestion)  
-- Scalable automation infrastructure  
-- Structured data pipelines  
-- Business process optimization  
-- Operational decision automation  
-
----
-
-## Author
-
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
+- Structured data pipeline design  
+- Operational process automation  
+- AI-assisted decision systems  
+- Scalable infrastructure design  
