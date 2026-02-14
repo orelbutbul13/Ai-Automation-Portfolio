@@ -2,7 +2,7 @@
 
 AI-powered expense tracking system that captures Telegram messages, extracts structured financial data using large language models, and stores clean records in Google Sheets.
 
-This project was developed as part of the TripleTen AI Automation Program.
+Developed as part of the TripleTen AI Automation Program.
 
 ---
 
@@ -67,7 +67,7 @@ Telegram → Webhook Processing → AI Extraction → Categorization → Structu
 2. Webhook processes incoming data  
 3. AI extracts financial details  
 4. Categorization applied  
-5. Structured row written to Google Sheets  
+5. Structured record written to Google Sheets  
 
 ---
 
@@ -88,11 +88,3 @@ Telegram → Webhook Processing → AI Extraction → Categorization → Structu
 - Structured data pipeline design  
 - Financial process automation  
 - Operational efficiency optimization  
-
----
-
-## Author
-
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
