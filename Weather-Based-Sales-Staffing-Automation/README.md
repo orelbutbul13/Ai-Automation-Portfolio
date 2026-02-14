@@ -2,102 +2,92 @@
 
 End-to-end automation system that leverages real-time weather data and AI reasoning to support proactive sales forecasting and staffing decisions.
 
-This project was developed as part of the TripleTen AI Automation Program.
+Developed as part of the TripleTen AI Automation Program.
 
 ---
 
-## 📂 Project Documentation
+## Project Documentation
 
-- 📄 Full project PDF (architecture, workflow logic, and outcomes)  
-- 🔗 [View Weather-Based Sales & Staffing Automation PDF](https://drive.google.com/file/d/1h3KY028fOnA5xxMfAc30WNigbw3GRFpQ/view?usp=drive_link)
+- [View Project Documentation (PDF)](https://drive.google.com/file/d/1h3KY028fOnA5xxMfAc30WNigbw3GRFpQ/view?usp=drive_link)
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
 This automation replaces reactive planning with data-driven insights by:
 
 - Retrieving real-time and forecast weather data via API  
-- Using AI to analyze conditions  
-- Applying conditional logic for staffing & sales impact  
-- Translating data into actionable recommendations  
-- Delivering notifications via email  
+- Analyzing environmental conditions using an AI model  
+- Applying conditional logic to evaluate staffing and sales impact  
+- Translating signals into operational recommendations  
+- Delivering automated notifications via email  
 
 The system enables proactive business planning without manual monitoring.
 
 ---
 
-## 🚨 Business Problem
+## Business Problem
 
 Weather-sensitive businesses often struggle with:
 
-- Late reaction to changes in demand  
+- Late reaction to demand changes  
 - Manual monitoring of forecasts  
 - Overstaffing or understaffing  
 - Inefficient operational planning  
 
-These issues increase labor costs and reduce revenue opportunities.
+These challenges increase labor costs and reduce revenue opportunities.
 
 ---
 
-## 💡 Solution Summary
+## Solution Summary
 
-An automated workflow built with:
+The automation system consists of:
 
-1. **Scheduled Trigger (Zapier)** — runs daily  
-2. **Weather API** — retrieves live & forecast data  
-3. **AI (Gemini)** — analyzes conditions  
-4. **Conditional Logic** — evaluates sales & staffing impact  
-5. **Gmail** — sends automated operational insights  
+1. Scheduled trigger (Zapier) — executes daily  
+2. Weather API — retrieves live and forecast data  
+3. AI model (Gemini / LLM) — evaluates conditions and impact  
+4. Conditional decision logic — calculates staffing and sales adjustments  
+5. Gmail automation — delivers operational insights  
 
-The system turns environmental signals into actionable decisions.
+The system converts environmental data into actionable business decisions.
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Zapier — workflow orchestration  
 - Weather API — external data ingestion  
-- Google AI (Gemini) — reasoning & insights  
+- Gemini / LLM — reasoning and insight generation  
 - Gmail — automated delivery  
-- Conditional Logic — business decision rules  
+- Conditional logic — business rule evaluation  
 
 ---
 
-## 🔁 Workflow Architecture
+## Workflow Architecture
 
 Scheduled Trigger → API Data Retrieval → AI Analysis → Decision Logic → Email Delivery
 
-1. Automation runs daily  
+1. Automation executes on schedule  
 2. Weather data retrieved from external API  
-3. AI evaluates forecast & conditions  
-4. Sales/staffing recommendations calculated  
+3. AI evaluates forecast and conditions  
+4. Sales and staffing implications calculated  
 5. Insight email delivered automatically  
 
 ---
 
-## 📊 Key Outcomes
+## Key Outcomes
 
 - Proactive staffing and sales planning  
 - Reduced manual forecast monitoring  
 - Faster data-driven decision-making  
-- Scalable automation adaptable across industries  
+- Scalable automation framework adaptable across industries  
 
 ---
 
-## 🎯 Skills Demonstrated
+## Skills Demonstrated
 
 - External API integration  
 - AI-assisted reasoning  
-- Conditional workflow logic  
-- Automation-first operational planning  
+- Conditional workflow architecture  
+- Automation-driven operational planning  
 - Scalable system design  
-
----
-
-## 👤 Author
-
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
-
