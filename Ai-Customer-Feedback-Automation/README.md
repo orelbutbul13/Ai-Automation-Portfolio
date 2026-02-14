@@ -10,7 +10,7 @@ This project was developed as part of the **TripleTen AI Automation Program**.
 ## 📎 Project Documentation
 
 📄 Full project PDF (design, workflow, prompt logic, and outcomes):  
-👉 https://drive.google.com/file/d/13aQUYMeotwxAQ5coCsN7Wr7o9X5Gjfrc/view?usp=drive_link
+👉 [View AI Automation Project PDF](https://drive.google.com/file/d/13aQUYMeotwxAQ5coCsN7Wr7o9X5Gjfrc/view?usp=drive_link)
 
 ---
 
