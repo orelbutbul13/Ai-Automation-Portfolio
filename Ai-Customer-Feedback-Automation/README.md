@@ -2,7 +2,7 @@
 
 End-to-end AI automation system that analyzes customer feedback and generates brand-aligned email responses using workflow orchestration and large language models.
 
-This project was developed as part of the TripleTen AI Automation Program.
+Developed as part of the TripleTen AI Automation Program.
 
 ---
 
@@ -14,7 +14,7 @@ This project was developed as part of the TripleTen AI Automation Program.
 
 ## Project Overview
 
-This automation workflow handles customer feedback submissions by:
+This automation workflow processes customer feedback submissions by:
 
 - Analyzing sentiment and intent  
 - Extracting key insights from open-text feedback  
@@ -51,11 +51,11 @@ The automation system consists of:
 
 ## Tech Stack
 
-- Make (Integromat) — automation orchestration  
+- Make (Integromat) — workflow orchestration  
 - Google Forms — data capture  
 - Gemini / LLM — text analysis and generation  
 - Gmail API — automated delivery  
-- Prompt Engineering — tone and structure control  
+- Prompt engineering — tone and structure control  
 
 ---
 
@@ -66,7 +66,7 @@ Trigger → Analysis → Classification → Response Generation → Email Delive
 1. New form response detected  
 2. AI processes customer message  
 3. Sentiment and intent extracted  
-4. Response generated using structured prompt  
+4. Structured response generated  
 5. Email delivered automatically  
 
 ---
@@ -88,11 +88,3 @@ Trigger → Analysis → Classification → Response Generation → Email Delive
 - AI-driven text analysis  
 - Business process automation  
 - Operational efficiency optimization  
-
----
-
-## Author
-
-Orel Butbul  
-AI Automation Specialist | Business Intelligence Analyst  
-United States
