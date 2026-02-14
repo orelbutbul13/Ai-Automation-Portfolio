@@ -1,98 +1,97 @@
 # AI Customer Feedback Automation
 
-End-to-end AI automation system that analyzes customer feedback and generates brand-aligned email responses using AI and workflow orchestration tools.
+End-to-end AI automation system that analyzes customer feedback and generates brand-aligned email responses using workflow orchestration and large language models.
 
 This project was developed as part of the TripleTen AI Automation Program.
 
 ---
 
-## 📂 Project Documentation
+## Project Documentation
 
-- 📄 Full project PDF (design, workflow, prompt logic, and outcomes)  
-- 🔗 [View Customer Feedback Automation PDF](https://drive.google.com/file/d/13aQUYMeotwxAQ5coCsN7Wr7o9X5Gjfrc/view?usp=drive_link)
+- [View Project Documentation (PDF)](https://drive.google.com/file/d/13aQUYMeotwxAQ5coCsN7Wr7o9X5Gjfrc/view?usp=drive_link)
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
 This automation workflow handles customer feedback submissions by:
 
 - Analyzing sentiment and intent  
 - Extracting key insights from open-text feedback  
-- Generating polished, luxury-tone email replies  
-- Sending automated responses via Gmail  
+- Generating structured, brand-aligned email replies  
+- Delivering automated responses via Gmail  
 
-The system removes manual review work and standardizes customer communication.
-
----
-
-## 🚨 Business Problem
-
-Many businesses struggle with:
-
-- Manual reading of customer feedback  
-- Interpreting sentiment and priority  
-- Writing personalized replies  
-- Ensuring consistent brand voice  
-
-This leads to delays, inconsistent responses, and high operational load.
+The system eliminates manual review and standardizes customer communication at scale.
 
 ---
 
-## 💡 Solution Summary
+## Business Problem
 
-An automated workflow built with:
+Organizations often face:
 
-1. **Google Forms** — collects customer feedback  
-2. **AI (Gemini / LLM)** — analyzes text for sentiment and intent  
-3. **Prompt-driven response generation** — creates on-brand emails  
-4. **Gmail Automation** — delivers responses automatically  
+- Manual review of open-text feedback  
+- Inconsistent tone and response quality  
+- Delayed customer communication  
+- High operational workload  
+
+These inefficiencies limit scalability and reduce customer satisfaction.
 
 ---
 
-## 🛠 Tech Stack
+## Solution Summary
+
+The automation system consists of:
+
+1. Google Forms — captures customer submissions  
+2. AI model (Gemini / LLM) — performs sentiment and intent analysis  
+3. Prompt-engineered response generation — produces structured replies  
+4. Gmail automation — delivers responses automatically  
+
+---
+
+## Tech Stack
 
 - Make (Integromat) — automation orchestration  
-- Google Forms — input feeder  
-- AI (Gemini / LLM) — sentiment analysis & response generation  
-- Gmail API — automated email delivery  
-- Prompt Engineering — tone control & style consistency  
+- Google Forms — data capture  
+- Gemini / LLM — text analysis and generation  
+- Gmail API — automated delivery  
+- Prompt Engineering — tone and structure control  
 
 ---
 
-## 🔁 Workflow Architecture
+## Workflow Architecture
 
-Trigger → Analysis → Classification → Reply Generation → Email Delivery
+Trigger → Analysis → Classification → Response Generation → Email Delivery
 
-1. New Google Form response detected  
-2. AI processes feedback text  
-3. System extracts sentiment & customer intent  
-4. AI generates high-quality email reply  
-5. Automated delivery via Gmail  
-
----
-
-## 📊 Key Outcomes
-
-- Eliminated manual review of feedback  
-- Consistent on-brand communication  
-- Significantly faster response times  
-- Scalable workflow for high feedback volume  
-- Reliable AI orchestration design  
+1. New form response detected  
+2. AI processes customer message  
+3. Sentiment and intent extracted  
+4. Response generated using structured prompt  
+5. Email delivered automatically  
 
 ---
 
-## 🎯 Skills Demonstrated
+## Key Outcomes
 
-- LLM prompt design & refinement  
-- Workflow automation strategy  
-- AI text analysis  
+- Eliminated manual feedback review  
+- Standardized brand communication  
+- Reduced response time  
+- Scalable automation architecture  
+- Reliable AI orchestration framework  
+
+---
+
+## Skills Demonstrated
+
+- LLM prompt design and refinement  
+- Workflow automation architecture  
+- AI-driven text analysis  
 - Business process automation  
-- Customer experience engineering  
+- Operational efficiency optimization  
 
 ---
 
-## 👤 Author
+## Author
 
 Orel Butbul  
 AI Automation Specialist | Business Intelligence Analyst  
