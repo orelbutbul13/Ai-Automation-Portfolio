@@ -1,4 +1,4 @@
-# AI Support Triage & Escalation Automation System
+# AI Support Triage & Escalation System
 
 End-to-end AI-powered support triage system that classifies service requests, determines urgency, and dynamically routes actions across multiple operational channels using workflow orchestration and structured large language model outputs.
 
@@ -8,7 +8,8 @@ Developed as part of the TripleTen AI Automation Program.
 
 ## Project Documentation
 
-- [Download Full Case Study (PDF)](https://drive.google.com/file/d/12yzJobpccB5bWdeV-cyrWbPrfAVACMZs/view?usp=drive_link)
+- [Download Full Case Study (PDF)](https://drive.google.com/file/d/1T7_x-Cut-ZpsM93OfeX0mCrE0RABa9FM/view?usp=drive_link)
+- [View Logged Support Records (Google Sheets)](https://docs.google.com/spreadsheets/d/13ThtOkAYxcszYxMWC2HRgqjgzN12Phz68G9F-YddEZ8/edit?usp=sharing)
 
 ---
 
@@ -88,14 +89,3 @@ Webhook Trigger → AI Classification → JSON Parsing → Data Logging → Cond
 - Structured operational logging  
 - Reduced manual triage workload  
 - Scalable AI-integrated support infrastructure  
-
----
-
-## Skills Demonstrated
-
-- LLM-driven classification systems  
-- Deterministic prompt engineering  
-- Event-driven workflow automation  
-- Conditional routing architecture  
-- Multi-channel integration design  
-- Structured data pipeline implementation  
