@@ -1,0 +1,1366 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2032,
+        312
+      ],
+      "id": "abb1ffc6-185a-4bf7-b2f3-0356db3df39a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1gOaptcn2EcCc2lvhiykhAlPEw-NJ3PZyxNMmSSboAO8",
+          "mode": "list",
+          "cachedResultName": "Benny Episode Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gOaptcn2EcCc2lvhiykhAlPEw-NJ3PZyxNMmSSboAO8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gOaptcn2EcCc2lvhiykhAlPEw-NJ3PZyxNMmSSboAO8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Episode": "={{ JSON.parse($('Video Prompt Generator').first().json.output[0].content[0].text).title }}",
+            "Lesson": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).lesson }}",
+            "Learning Topic": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).learning_topic }}",
+            "Summary": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).summary }}",
+            "Prompt Count": "={{ JSON.parse($('Video Prompt Generator').first().json.output[0].content[0].text).veo_prompts.length }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Episode",
+              "displayName": "Episode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Lesson",
+              "displayName": "Lesson",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Learning Topic",
+              "displayName": "Learning Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Prompt Count",
+              "displayName": "Prompt Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -528,
+        312
+      ],
+      "id": "a6d8e40a-dd63-4f6a-b93e-a226590a0c93",
+      "name": "Create Episode Record",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "P9oXDPyUo4EoRzN5",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1gOaptcn2EcCc2lvhiykhAlPEw-NJ3PZyxNMmSSboAO8",
+          "mode": "list",
+          "cachedResultName": "Benny Episode Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gOaptcn2EcCc2lvhiykhAlPEw-NJ3PZyxNMmSSboAO8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gOaptcn2EcCc2lvhiykhAlPEw-NJ3PZyxNMmSSboAO8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Episode": "={{ JSON.parse($('Video Prompt Generator').first().json.output[0].content[0].text).title }}",
+            "Lesson": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).lesson }}",
+            "Episode Summary": "={{ JSON.parse($json.output[0].content[0].text).episode_summary }}",
+            "SEO Keywords": "={{ JSON.parse($json.output[0].content[0].text).seo_keywords.join(\", \") }}",
+            "YouTube Description": "={{ JSON.parse($json.output[0].content[0].text).youtube_description }}",
+            "Thumbnail Text": "={{ JSON.parse($json.output[0].content[0].text).thumbnail_text }}",
+            "YouTube Title": "={{ JSON.parse($json.output[0].content[0].text).youtube_title }}",
+            "Learning Topic": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).learning_topic }}",
+            "Summary": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).summary }}",
+            "Prompt Count": "={{ JSON.parse($('Video Prompt Generator').first().json.output[0].content[0].text).veo_prompts.length }}",
+            "Overall Score": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).overall_score }}",
+            "Story Score": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).story_score }}",
+            "Education Score": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).education_score }}",
+            "Character Score": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).character_score }}",
+            "Approval Status": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).overall_score >= 8 ? \"Approved\" : \"Needs Revision\" }}",
+            "Recommendation": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).recommendation }}",
+            "Engagement Score": "={{ JSON.parse($node[\"Story Director Review\"].json.output[0].content[0].text).engagement_score }}"
+          },
+          "matchingColumns": [
+            "Episode"
+          ],
+          "schema": [
+            {
+              "id": "Episode",
+              "displayName": "Episode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lesson",
+              "displayName": "Lesson",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Learning Topic",
+              "displayName": "Learning Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Prompt Count",
+              "displayName": "Prompt Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "YouTube Title",
+              "displayName": "YouTube Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Thumbnail Text",
+              "displayName": "Thumbnail Text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "YouTube Description",
+              "displayName": "YouTube Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SEO Keywords",
+              "displayName": "SEO Keywords",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Episode Summary",
+              "displayName": "Episode Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Overall Score",
+              "displayName": "Overall Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Story Score",
+              "displayName": "Story Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Education Score",
+              "displayName": "Education Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Character Score",
+              "displayName": "Character Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Engagement Score",
+              "displayName": "Engagement Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Recommendation",
+              "displayName": "Recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Approval Status",
+              "displayName": "Approval Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        312
+      ],
+      "id": "f18d8aa7-1044-44ee-b774-e46c5c9613c0",
+      "name": "Update Episode Record",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "P9oXDPyUo4EoRzN5",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ JSON.parse($('Video Prompt Generator').first().json.output[0].content[0].text).veo_prompts.map(p => `Scene ${p.scene}\\n${p.prompt}`).join(\"\\n\\n\") }}",
+        "name": "Video Prompts.txt",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Episode Folder').first().json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1296,
+        384
+      ],
+      "id": "81c94128-6dce-4838-9fc0-b67132f42e05",
+      "name": "Create Video Prompts File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $('Voiceover Script Generator').first().json.output[0].content[0].text }}",
+        "name": "Voiceover Script.txt",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Episode Folder').first().json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1520,
+        384
+      ],
+      "id": "f21d4de1-e18c-4959-8dbb-c07430b3e73a",
+      "name": "Create Voiceover File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ JSON.parse($('Thumbnail Prompt Generator').first().json.output[0].content[0].text).thumbnail_prompt }}",
+        "name": "Thumbnail Prompt.txt",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Episode Folder').first().json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2096,
+        408
+      ],
+      "id": "478a7d76-048f-4d3c-9190-63ac63a9fcb5",
+      "name": "Create Thumbnail Prompt File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9fd3a9e5-75f4-4432-87e3-1fd562ae58e9",
+              "leftValue": "={{ JSON.parse($json.output[0].content[0].text).overall_score }}",
+              "rightValue": 8,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1104,
+        312
+      ],
+      "id": "ed380c8c-82f0-4ce1-b7d4-a4f068e4a8b8",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $('Video Prompt Generator').first().json.output[0].content[0].text;\n\nconst data = JSON.parse(text);\n\nconst prompts = data.veo_prompts || [];\n\n// FULL MODE: Generate all scene images\nreturn prompts.map((scene, index) => {\n  const promptText = scene.prompt || scene;\n  const sceneNumber = index + 1;\n  const padded = String(sceneNumber).padStart(2, '0');\n\n  return {\n    json: {\n      scene_number: sceneNumber,\n      file_name: `scene_${padded}.png`,\n      video_file_name: `scene_${padded}.mp4`,\n      video_prompt: promptText,\n      image_prompt: `\nA premium storybook illustration of one scene from a children's animated series.\n\nIMPORTANT CHARACTER CONSISTENCY:\nBenny Bear is ALWAYS the same character.\n\n- Small fluffy caramel-brown teddy bear\n- Large expressive sparkling eyes\n- Warm friendly smile\n- Soft blue knitted explorer scarf\n- Blue explorer backpack with little buckles\n- Soft plush-like fur\n\nNever change:\n- species\n- fur color\n- scarf color\n- backpack color\n- age\n- art style\n\nSCENE:\n${promptText}\n\nSTYLE:\nRich painterly storybook illustration quality, like a high-end children's picture book.\nWarm volumetric lighting (soft golden-hour glow where appropriate).\nDetailed, full scene composition with depth and texture in the background.\nSmooth soft shading, inviting warm color palette.\nExtremely cute and lovable character design.\nSafe and friendly for ages 5-10.\nCinematic composition.\nNo text.\nNo logos.\nNo watermark.\nNo subtitles.\n`\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2320,
+        408
+      ],
+      "id": "5283a7b6-264d-470c-ad26-f5d5ae94aec0",
+      "name": "Extract Scene Prompts"
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Extract Scene Prompts').item.json.file_name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Episode Folder').first().json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2768,
+        576
+      ],
+      "id": "2ef534f6-b1e7-4839-8342-10f5c9fe9666",
+      "name": "Save Scene Image to Episode Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Extract Voice Lines').item.json.file_name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Episode Folder').item.json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1808,
+        216
+      ],
+      "id": "8ab3a3ad-4d61-4305-9822-249472fad0d5",
+      "name": "Save Narration Audio to Episode Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $('Voiceover Script Generator').first().json.output[0].content[0].text;\nconst data = JSON.parse(raw);\n\nconst lines = data.voice_lines || [];\n\nconst voiceMap = {\n  \"Narrator\": \"nova\",\n  \"Benny Bear\": \"alloy\",\n  \"Pip the Fox\": \"echo\",\n  \"Professor Owl\": \"onyx\",\n  \"Luna the Bunny\": \"shimmer\",\n  \"Spark the Star\": \"fable\",\n  \"Mr. Grumble\": \"onyx\"\n};\n\nreturn lines.map((line, index) => {\n  const speaker = line.speaker || \"Narrator\";\n\n  const cleanSpeaker = speaker\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, \"_\")\n    .replace(/^_|_$/g, \"\");\n\n  return {\n    json: {\n      line_number: index + 1,\n      scene: line.scene,\n      speaker: speaker,\n      voice: voiceMap[speaker] || \"nova\",\n      text: line.text,\n      image_file: `scene_${String(line.scene).padStart(2, \"0\")}.png`,\n      file_name: `scene_${String(line.scene).padStart(2, \"0\")}_line_${String(index + 1).padStart(3, \"0\")}_${cleanSpeaker}.mp3`\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        312
+      ],
+      "id": "8b310235-49ba-4eff-ba6f-f9d40d9a29fa",
+      "name": "Extract Voice Lines"
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "={{ JSON.parse($('Episode Generator').first().json.output[0].content[0].text).title }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1f2GY0gyf0b2HMI5gnEUq9DQZrVMON39H",
+          "mode": "list",
+          "cachedResultName": "Benny Bear Studio",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1f2GY0gyf0b2HMI5gnEUq9DQZrVMON39H"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        272,
+        312
+      ],
+      "id": "76505fee-3d55-490e-9807-2cba3d41f632",
+      "name": "Create Episode Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1072,
+        312
+      ],
+      "id": "3f83d1a8-6b02-458d-8c4c-3476ee6219be",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1296,
+        192
+      ],
+      "id": "74eb7bae-98d4-4fe9-a55b-e1eefacdd427",
+      "name": "Wait",
+      "webhookId": "6659e018-58e4-4523-baaf-8912d7c29eab"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "Create a children's TV episode.\n\nCharacter:\nBenny Bear\n\nTarget Age:\n5-10\n\nLife Lesson:\nCourage\n\nLearning Topic:\nMaps\n\nEpisode Length:\n4 minutes\n\nNumber of Scenes:\n24\n\nIMPORTANT STORY RULES:\n\n* Benny Bear must always be kind, curious, helpful, encouraging, and a positive role model.\n* Create a clear beginning, middle, and ending.\n* Every scene must move the story forward.\n* The educational content must feel natural and part of the adventure.\n* Focus on storytelling first and education second.\n\nIMPORTANT EDUCATIONAL RULES:\n\n* Teach only 2-3 concepts from the learning topic.\n* Do not attempt to teach the entire topic in one episode.\n* Keep concepts simple enough for ages 5-10.\n* Avoid educational overload.\n* Prefer depth over breadth.\n\nExample:\n\nIf the learning topic is Maps, choose only 2-3 of:\n\n* Compass directions\n* Landmarks\n* Map symbols\n* Map key\n* Scale\n* Grid coordinates\n\nDo not teach more than 3 map concepts in a single episode.\n\nIMPORTANT ENGAGEMENT RULES:\n\n* Include audience participation moments.\n* Include curiosity, discovery, and wonder.\n* Avoid repetitive educational explanations.\n* Avoid scenes that feel like a classroom lesson.\n\nIMPORTANT SAFETY RULES:\n\n* Benny always makes safe choices.\n* Benny thinks before acting.\n* Benny asks for help when appropriate.\n* Never encourage risky behavior.\n\nOutput JSON only.\n\nRequired JSON format:\n\n{\n\"title\":\"\",\n\"lesson\":\"\",\n\"learning_topic\":\"\",\n\"summary\":\"\",\n\"scenes\":[\n{\n\"scene\":1,\n\"description\":\"\"\n}\n]\n}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -1808,
+        312
+      ],
+      "id": "a51d9a7c-31e4-4614-b020-76a56eb777ed",
+      "name": "Episode Generator",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are a world-class children's television director, animation producer, story editor, and Google Flow / Veo prompt engineer.\n\nYour job is to convert the incoming episode JSON into high-quality cinematic video-generation prompts.\n\n==================================================\nEPISODE DATA\n============\n\n{{ JSON.stringify($json) }}\n\n==================================================\nSERIES CONTINUITY RULES\n=======================\n\nThis is a long-running children's television franchise.\n\nEvery episode must feel like it belongs to the same world.\n\nMaintain complete consistency across all scenes.\n\nNever contradict previous scenes.\n\n==================================================\nCHARACTER BIBLE\n===============\n\nBenny Bear\n\n* Small fluffy brown bear\n* Soft brown fur\n* Large expressive eyes\n* Warm friendly smile\n* Blue explorer scarf\n* Blue explorer backpack\n* Kind\n* Curious\n* Brave\n* Helpful\n* Adventurous\n\nBenny must remain visually identical in every scene.\n\nNever change:\n\n* Fur color\n* Eye color\n* Clothing\n* Backpack\n* Age\n* Height\n* Body proportions\n* Personality\n\n---\n\nPip the Fox\n\n* Small orange fox\n* Bright green eyes\n* Large fluffy tail\n* Tiny explorer vest\n\n---\n\nProfessor Owl\n\n* Friendly owl\n* Round glasses\n* Small satchel\n* Wise mentor\n\n---\n\nLuna the Bunny\n\n* White bunny\n* Purple scarf\n* Bright blue eyes\n\n---\n\nSpark the Star\n\n* Tiny floating golden star\n* Warm glow\n* Expressive face\n\n---\n\nMr. Grumble\n\n* Large gray badger\n* Bushy eyebrows\n* Grumpy expression\n\n==================================================\nCRITICAL CHARACTER RULE\n=======================\n\nONLY the characters above are allowed.\n\nNEVER create:\n\n* New animals\n* New friends\n* New creatures\n* New teachers\n* New guides\n* New villagers\n* New helpers\n* New sidekicks\n\nIf a scene requires help or explanation:\n\nUse:\n\n* Professor Owl\n* Pip\n* Luna\n* Spark\n* Mr. Grumble\n\nONLY if they are explicitly mentioned in the source episode.\n\nIf they are not mentioned:\n\nUse Benny only.\n\nNEVER introduce characters that do not already exist.\n\n==================================================\nWORLD RULES\n===========\n\nThe world is:\n\n* Safe\n* Warm\n* Magical\n* Colorful\n* Family-friendly\n* Optimistic\n* Wonder-filled\n\nNEVER randomly introduce:\n\n* Castles\n* Gates\n* Portals\n* Vehicles\n* Weapons\n* Flying machines\n* Cities\n* Buildings\n* Random magical artifacts\n\nOnly include objects that are required by the scene.\n\n==================================================\nVISUAL STYLE\n============\n\n* Premium children's television quality\n* Pixar-quality emotional storytelling\n* High-end cinematic animation\n* Large expressive eyes\n* Warm cinematic lighting\n* Beautiful environments\n* Soft family-friendly visuals\n* Consistent art direction\n* Consistent character models\n\n==================================================\nVIDEO GENERATION RULES\n======================\n\nCreate EXACTLY one prompt for every scene.\n\nEach prompt represents:\n\n* One 10-second video clip\n\nEach prompt must contain:\n\n* Environment\n* Character actions\n* Facial expressions\n* Camera movement\n* Lighting\n* Ambient sounds\n* Sound effects\n* Dialogue if useful\n\nEvery scene should contain:\n\nBeginning\nMiddle\nEnd\n\nMaintain continuity from scene to scene.\n\n==================================================\nDIALOGUE RULES\n==============\n\nKeep dialogue short.\n\nKeep dialogue natural.\n\nChildren should easily understand every line.\n\nNever use complex vocabulary.\n\n==================================================\nPROMPT QUALITY RULES\n====================\n\nPrompts must be optimized for:\n\n* Google Flow\n* Veo\n* Runway\n* Kling\n* Hailuo\n\nPrompts should be:\n\n* Clear\n* Visual\n* Cinematic\n* Consistent\n* Easy for video AI to understand\n\n==================================================\nOUTPUT FORMAT\n=============\n\nReturn JSON only.\n\n{\n\"title\": \"\",\n\"veo_prompts\": [\n{\n\"scene\": 1,\n\"prompt\": \"\"\n}\n]\n}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -880,
+        312
+      ],
+      "id": "0c0e769e-cfe4-4dc3-bdd6-70f02bb881d8",
+      "name": "Video Prompt Generator",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are a YouTube Kids content strategist.\n\nBased on the episode information provided, create:\n\n1. YouTube Title\n2. Thumbnail Text (max 4 words)\n3. YouTube Description\n4. SEO Keywords\n5. Short Episode Summary\n\nEpisode:\n{{ JSON.stringify($json) }}\n\nReturn JSON only:\n\n{\n\"youtube_title\": \"\",\n\"thumbnail_text\": \"\",\n\"youtube_description\": \"\",\n\"seo_keywords\": [],\n\"episode_summary\": \"\"\n}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        312
+      ],
+      "id": "4d5c7b23-050f-4c52-8ecf-8eb0c917b8a2",
+      "name": "YouTube Package Generator",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are an expert children's TV writer and animation dialogue writer.\n\nCreate a complete voice script for the Benny Bear episode.\n\nThis script will be used to generate DIFFERENT CHARACTER VOICES.\n\nDo NOT write long narrator paragraphs.\nDo NOT combine dialogue into one block.\nCreate individual voice lines for each speaker.\n\nTARGET AUDIENCE:\n\n* Ages 5–10\n* Disney Junior quality\n* PBS Kids quality\n* Educational\n* Funny\n* Emotional\n* Thoughtful\n* Adventurous\n\nCHARACTER RULES:\nOnly these characters may appear:\n\n* Benny Bear\n* Pip the Fox\n* Professor Owl\n* Luna the Bunny\n* Spark the Star\n* Mr. Grumble\n* Narrator\n\nNever create new characters.\n\nBENNY BEAR RULES:\nBenny is always:\n\n* small fluffy brown bear\n* blue explorer scarf\n* blue explorer backpack\n* kind\n* curious\n* brave\n\nVOICE LINE RULES:\n\n* Create 3–4 voice lines per scene.\n* Average 3 voice lines per scene.\n* Maximum total voice_lines: 90.\n* Never exceed 90 voice_lines.\n* Most lines should be under 12 words.\n* Narrator should be used sparingly.\n* Benny should speak frequently.\n* Pip, Luna, Spark, and Professor Owl should appear regularly.\n* Avoid long conversations.\n* Avoid repeating information.\n* Let visuals tell part of the story.\n* Every line should move the story forward or teach something useful.\n\nReturn JSON only.\n\nFormat:\n{\n\"title\": \"\",\n\"voice_lines\": [\n{\n\"scene\": 1,\n\"speaker\": \"Narrator\",\n\"text\": \"Morning arrives in Wonder Woods.\"\n},\n{\n\"scene\": 1,\n\"speaker\": \"Benny Bear\",\n\"text\": \"Ready for today's adventure, explorers?\"\n}\n]\n}\n\nThe episode must contain voice lines for all scenes in the episode.\n\nThe final scene must end with Benny Bear saying:\n\"Every adventure teaches us something new!\"\n\nEpisode:\n{{ $('Episode Generator').first().json.output[0].content[0].text }}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        496,
+        312
+      ],
+      "id": "9ae39397-ef2d-4e5c-8442-6f9bbf817fbb",
+      "name": "Voiceover Script Generator",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "input": "={{ $json.text }}",
+        "voice": "={{ $json.voice }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1520,
+        192
+      ],
+      "id": "dc0f75ba-d45a-4f6a-85f0-beb5266bddaa",
+      "name": "Generate Narration Audio",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are the Executive Story Director, Head Writer, Educational Consultant, and Child Development Reviewer for Benny Bear Studio.\n\nYour job is to review the episode concept BEFORE production assets are created.\n\nBenny Bear Studio creates premium educational entertainment for children ages 4–8.\n\nAt this stage, ONLY review the episode idea, lesson, learning topic, summary, and scenes.\n\nDo NOT review voiceover, thumbnail, YouTube package, images, audio, or video prompts because they have not been created yet.\n\nBe objective and critical.\n\nDo not inflate scores.\n\nA score of 10 should be extremely rare.\n\n--------------------------------------------------\nREVIEW CRITERIA\n--------------------------------------------------\n\n1. STORY QUALITY\n\nEvaluate:\n- Clear beginning, middle, and end\n- Strong episode structure\n- Clear problem or adventure\n- Satisfying resolution\n- Age-appropriate conflict\n- Emotional payoff\n- Pacing across scenes\n\nScore 1-10.\n\n--------------------------------------------------\n\n2. EDUCATIONAL QUALITY\n\nEvaluate:\n- Is the learning topic clear?\n- Is it understandable for ages 4–8?\n- Is the learning naturally built into the story?\n- Is the lesson memorable?\n- Does the episode encourage curiosity?\n\nScore 1-10.\n\n--------------------------------------------------\n\n3. SOCIAL-EMOTIONAL LEARNING\n\nEvaluate:\n- Kindness\n- Courage\n- Confidence\n- Friendship\n- Empathy\n- Problem solving\n- Positive choices\n\nScore 1-10.\n\n--------------------------------------------------\n\n4. BENNY CHARACTER CONSISTENCY\n\nEvaluate:\n- Is Benny kind?\n- Is Benny curious?\n- Is Benny helpful?\n- Is Benny encouraging?\n- Does Benny behave like a positive role model?\n- Does Benny stay consistent throughout the episode?\n\nScore 1-10.\n\n--------------------------------------------------\n\n5. ENGAGEMENT LEVEL\n\nEvaluate:\n- Will children stay interested?\n- Are there enough moments of wonder?\n- Are there enough active scenes?\n- Is there audience participation potential?\n- Are there boring or repetitive scenes?\n\nScore 1-10.\n\n--------------------------------------------------\n\n6. AGE APPROPRIATENESS\n\nEvaluate:\n- Is the story safe for ages 4–8?\n- Is the topic too complex?\n- Is the language implied by the scenes too advanced?\n- Are any scenes scary, risky, confusing, or too mature?\n\nScore 1-10.\n\n--------------------------------------------------\n\n7. PRODUCTION RISK\n\nEvaluate:\n- Are there too many characters?\n- Are there too many locations?\n- Are there scenes that may be hard to animate?\n- Are there continuity problems?\n- Are there safety concerns?\n\nScore 1-10.\n\n--------------------------------------------------\nSCORING GUIDE\n--------------------------------------------------\n\n10 = Exceptional\n9 = Excellent\n8 = Strong\n7 = Good\n6 = Average\n5 = Weak\n4 or below = Needs Major Improvement\n\n--------------------------------------------------\nINPUT DATA\n--------------------------------------------------\n\nEPISODE:\n{{ JSON.stringify($node[\"Episode Generator\"].json) }}\n\n--------------------------------------------------\nOUTPUT FORMAT\n--------------------------------------------------\n\nReturn ONLY valid JSON.\n\n{\n  \"overall_score\": 0,\n  \"story_score\": 0,\n  \"education_score\": 0,\n  \"sel_score\": 0,\n  \"character_score\": 0,\n  \"engagement_score\": 0,\n  \"age_appropriateness_score\": 0,\n  \"production_risk_score\": 0,\n  \"strengths\": [],\n  \"weaknesses\": [],\n  \"required_fixes\": [],\n  \"recommendation\": \"\",\n  \"summary\": \"\"\n}\n\nDo not return markdown.\nDo not return explanations outside JSON.\nReturn only the JSON object."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -1456,
+        312
+      ],
+      "id": "25d8c73e-3885-449f-b936-7051054084ff",
+      "name": "Story Director Review",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are a children's TV key-art designer for Benny Bear Studio.\n\nCreate ONE cinematic thumbnail image prompt for this episode, optimized for image-generation models (DALL-E / GPT Image).\n\nCHARACTER RULE:\nBenny Bear is a small fluffy caramel-brown teddy bear with large expressive sparkling eyes, a warm friendly smile, a blue explorer scarf, and a blue explorer backpack. Keep him visually identical to the rest of the series.\n\nSTYLE:\nPremium children's animated television series. Extremely cute and lovable character design. Warm lighting. Colorful adventure world. Safe and friendly for ages 5-10. Bold, eye-catching YouTube thumbnail composition. No text. No logos. No subtitles.\n\nEPISODE:\n{{ JSON.stringify($('Episode Generator').first().json) }}\n\nReturn JSON only:\n{\n\"thumbnail_prompt\": \"\"\n}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1744,
+        408
+      ],
+      "id": "f4a6c5b1-9e3a-4b8e-9d2f-3c1a7b6e9d10",
+      "name": "Thumbnail Prompt Generator",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "model": "gpt-image-1",
+        "prompt": "={{ $json.image_prompt }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        2544,
+        408
+      ],
+      "id": "a2d8e6c4-7f1b-4e9a-8c3d-5b9f2e1a6d44",
+      "name": "Generate Scene Image",
+      "credentials": {
+        "openAiApi": {
+          "id": "AdvPEzWxtkEQoaFl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const buffer = await this.helpers.getBinaryDataBuffer('data');\nreturn {\n  json: {\n    ...$json,\n    image_base64: buffer.toString('base64'),\n  },\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2768,
+        384
+      ],
+      "id": "37767a2b-9cd8-4fb9-94ab-688abf0f45a6",
+      "name": "Encode Image Base64"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/veo-3.1-fast-generate-preview:predictLongRunning",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {\n  \"instances\": [{\n    \"prompt\": $json.video_prompt,\n    \"image\": {\n      \"inlineData\": {\n        \"mimeType\": \"image/png\",\n        \"data\": $json.image_base64\n      }\n    }\n  }],\n  \"parameters\": {\n    \"aspectRatio\": \"16:9\",\n    \"resolution\": \"720p\",\n    \"durationSeconds\": \"4\"\n  }\n} }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2992,
+        384
+      ],
+      "id": "f338f64c-562a-49e4-aabc-5dda375c9733",
+      "name": "Start Scene Video Generation",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "4vxsb6dfNVmXDs8r",
+          "name": "Gemini API (Veo)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3216,
+        384
+      ],
+      "id": "5fd7969f-2ef8-4e5e-8c2a-487ba8d148f4",
+      "name": "Wait Before Poll",
+      "webhookId": "b9930b78-6559-4a11-9e29-ef24a5aa91a2"
+    },
+    {
+      "parameters": {
+        "url": "=https://generativelanguage.googleapis.com/v1beta/{{ $('Start Scene Video Generation').item.json.name }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3440,
+        312
+      ],
+      "id": "a480b4d9-9c76-453b-a7b2-fbbc4c6c8714",
+      "name": "Check Video Status",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "4vxsb6dfNVmXDs8r",
+          "name": "Gemini API (Veo)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8b130592-3501-465c-99d3-a0c064a0cecf",
+              "leftValue": "={{ $json.done }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3664,
+        384
+      ],
+      "id": "4d7edada-78f4-4f80-aeb4-a339b6013197",
+      "name": "Is Video Ready"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.response.generateVideoResponse.generatedSamples[0].video.uri }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3888,
+        384
+      ],
+      "id": "c50390f7-581d-4d62-8730-852dc42b9e0d",
+      "name": "Download Scene Video",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "4vxsb6dfNVmXDs8r",
+          "name": "Gemini API (Veo)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Extract Scene Prompts').item.json.video_file_name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Episode Folder').first().json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        4112,
+        384
+      ],
+      "id": "66ed9893-21e3-4952-9e61-bcc36501ce8f",
+      "name": "Save Scene Video to Episode Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ZpGb8mJQX0YOngkH",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Update Episode Record": {
+      "main": [
+        [
+          {
+            "node": "Create Episode Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Video Prompts File": {
+      "main": [
+        [
+          {
+            "node": "Create Voiceover File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Voiceover File": {
+      "main": [
+        [
+          {
+            "node": "Thumbnail Prompt Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Thumbnail Prompt File": {
+      "main": [
+        [
+          {
+            "node": "Extract Scene Prompts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Narration Audio to Episode Folder": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Voice Lines": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Create Video Prompts File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Episode Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Episode Generator": {
+      "main": [
+        [
+          {
+            "node": "Story Director Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Video Prompt Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video Prompt Generator": {
+      "main": [
+        [
+          {
+            "node": "Create Episode Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Episode Record": {
+      "main": [
+        [
+          {
+            "node": "YouTube Package Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube Package Generator": {
+      "main": [
+        [
+          {
+            "node": "Update Episode Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Episode Folder": {
+      "main": [
+        [
+          {
+            "node": "Voiceover Script Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voiceover Script Generator": {
+      "main": [
+        [
+          {
+            "node": "Extract Voice Lines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Generate Narration Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Narration Audio": {
+      "main": [
+        [
+          {
+            "node": "Save Narration Audio to Episode Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Story Director Review": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Thumbnail Prompt Generator": {
+      "main": [
+        [
+          {
+            "node": "Create Thumbnail Prompt File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Scene Prompts": {
+      "main": [
+        [
+          {
+            "node": "Generate Scene Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Scene Image": {
+      "main": [
+        [
+          {
+            "node": "Save Scene Image to Episode Folder",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Encode Image Base64",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Encode Image Base64": {
+      "main": [
+        [
+          {
+            "node": "Start Scene Video Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Scene Video Generation": {
+      "main": [
+        [
+          {
+            "node": "Wait Before Poll",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Before Poll": {
+      "main": [
+        [
+          {
+            "node": "Check Video Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Video Status": {
+      "main": [
+        [
+          {
+            "node": "Is Video Ready",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Video Ready": {
+      "main": [
+        [
+          {
+            "node": "Download Scene Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait Before Poll",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Scene Video": {
+      "main": [
+        [
+          {
+            "node": "Save Scene Video to Episode Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  }
+}
