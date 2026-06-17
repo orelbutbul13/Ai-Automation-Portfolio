@@ -78,6 +78,14 @@ Trigger → Story Generation → Automated Quality Review → Scene & Voice Scri
 
 ---
 
+## Full Workflow Canvas
+
+The diagram above is a simplified overview. Below is the actual n8n workflow canvas, showing the full node-level implementation: conditional branching, retry handling, parallel scene/voice processing, and a built-in (currently dormant) AI video generation branch reserved for future use.
+
+![Full workflow canvas](./workflow-canvas-full.png)
+
+---
+
 ## Key Outcomes
 
 - Fully automated script-to-asset production pipeline
