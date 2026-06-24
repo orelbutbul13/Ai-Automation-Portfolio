@@ -8,7 +8,7 @@ Personal project — active proof of concept.
 
 ## Project Documentation
 
-- [View Project Case Study (PDF)](https://docs.google.com/document/d/1Lsl7GAkXGlaEDQDFbb6XPgpUB5jFQVZtgzdYD0ZOMQg/edit?usp=sharing)
+- [View Project Case Study (PDF)](https://docs.google.com/document/d/1JmkaOVEekW8rQ6Mnms0hFY1tYzvEC8OvatFBk0yS3xo/edit?usp=sharing)
 - [Workflow Export (n8n JSON)](./AI_Document_Automation_workflow.json)
 
 ---
@@ -80,6 +80,12 @@ Drive Trigger → Download + Hash → AI Classification → Confidence/Sensitivi
 6. A second GPT call drafts a short, fact-grounded notification email
 7. Email sent via Gmail, record logged to Google Sheets, file moved to the matching Drive folder
 8. Any node failure anywhere is caught, logged to an Errors sheet, the admin is alerted by email, and the file is moved to an Errors folder
+
+---
+
+## Full Workflow Canvas
+
+![Full workflow canvas](./workflow-canvas-full.png)
 
 ---
 
