@@ -71,12 +71,6 @@ Telegram → Webhook Processing → AI Extraction → Categorization → Structu
 
 ---
 
-## Full Workflow Canvas
-
-![Full workflow canvas](./workflow-canvas-full.png)
-
----
-
 ## Key Outcomes
 
 - Automated expense logging  
