@@ -18,6 +18,7 @@ These projects demonstrate scalable automation architecture, structured data pip
 | 6 | [Automated Client Provisioning System](https://github.com/orelbutbul13/Ai-Automation-Portfolio/tree/main/Automated-Client-Provisioning-System) | API-driven Google Drive automation that provisions structured client workspaces using batch HTTP requests and standardized folder architecture. |
 | 7 | [Weather-Based Sales & Staffing Automation](https://github.com/orelbutbul13/Ai-Automation-Portfolio/tree/main/Weather-Based-Sales-Staffing-Automation) | Automation integrating real-time weather APIs and AI reasoning to generate proactive sales forecasting and staffing recommendations. |
 | 8 | [Benny Bear Studio - AI Content Pipeline](https://github.com/orelbutbul13/Ai-Automation-Portfolio/tree/main/Benny-Bear-Studio-AI-Content-Pipeline) | Multi-model AI production pipeline (n8n + GPT-5 + image/voice generation) that writes, illustrates, and narrates episodes of an original children's series, with automated quality scoring and asset management. |
+| 9 | [AI Document Intake, Classification & Routing System](https://github.com/orelbutbul13/Ai-Automation-Portfolio/tree/main/AI-Document-Intake-Classification-Routing-System) | LLM-driven document automation that classifies inbound files with a multimodal AI model, applies a confidence/sensitivity gate, and routes each document to an automated email, human review, or error-escalation path. |
 
 ---
 
