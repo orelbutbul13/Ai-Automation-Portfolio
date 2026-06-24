@@ -72,6 +72,12 @@ Gmail → AI Analysis → Conditional Filter → Path Routing → Structured Sto
 
 ---
 
+## Full Workflow Canvas
+
+![Full workflow canvas](./workflow-canvas-full.png)
+
+---
+
 ## Key Outcomes
 
 - Reduced time spent reviewing emails  

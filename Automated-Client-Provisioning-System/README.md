@@ -78,6 +78,12 @@ Form Submission → Folder Creation → Batch Replication → Structure Enforcem
 
 ---
 
+## Full Workflow Canvas
+
+![Full workflow canvas](./workflow-canvas-full.png)
+
+---
+
 ## Key Outcomes
 
 - Fully automated client provisioning  

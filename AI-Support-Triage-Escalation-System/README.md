@@ -81,6 +81,12 @@ Webhook Trigger → AI Classification → JSON Parsing → Data Logging → Cond
 
 ---
 
+## Full Workflow Canvas
+
+![Full workflow canvas](./workflow-canvas-full.png)
+
+---
+
 ## Key Outcomes
 
 - Fully automated service request classification  

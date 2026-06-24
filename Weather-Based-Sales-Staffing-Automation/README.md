@@ -75,6 +75,12 @@ Scheduled Trigger → API Data Retrieval → AI Analysis → Decision Logic → 
 
 ---
 
+## Full Workflow Canvas
+
+![Full workflow canvas](./workflow-canvas-full.png)
+
+---
+
 ## Key Outcomes
 
 - Proactive staffing and sales planning  

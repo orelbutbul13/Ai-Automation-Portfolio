@@ -73,6 +73,12 @@ Trigger → Topic Retrieval → AI Research → Draft Generation → Refinement 
 
 ---
 
+## Full Workflow Canvas
+
+![Full workflow canvas](./workflow-canvas-full.png)
+
+---
+
 ## Key Outcomes
 
 - Fully automated weekly blog creation  
