@@ -8,7 +8,7 @@ Personal project — active proof of concept.
 
 ## Project Documentation
 
-- [View Project Case Study (PDF)](https://docs.google.com/document/d/1JmkaOVEekW8rQ6Mnms0hFY1tYzvEC8OvatFBk0yS3xo/edit?usp=sharing)
+- [View Project Case Study (PDF)](https://docs.google.com/document/d/14k2VyA72F7qVDIp1iEttX_F8xJtePyzbEmNKBtMZekg/edit?usp=sharing)
 - [Workflow Export (n8n JSON)](./AI_Document_Automation_workflow.json)
 
 ---
