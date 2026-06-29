@@ -18,7 +18,7 @@ Certified legal translation firms handle documents that demand accuracy at a lev
 
 ## Pipeline Architecture
 
-![Workflow](screenshots/workflow.png)
+**[→ View Workflow Screenshot](screenshots/workflow.png)** — full n8n canvas showing all pipeline stages
 
 ```
 Drive Trigger → Download → Hash Check → Move to Processing
