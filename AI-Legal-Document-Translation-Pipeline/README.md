@@ -6,9 +6,7 @@ Client project for a US-based certified legal translation firm (NDA).
 
 ## Project Documentation
 
-[Live Slide Deck](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/presentation.html) — 16-slide deck covering architecture, all 3 AI prompts, challenges, node reference, and live demo steps
-
-[Live Technical Reference](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html) — full prompt text, architecture diagram, bug table, and demo walkthrough
+[Live Project Page](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html) — full pipeline walkthrough: architecture, AI prompts, bug table, business analysis, and demo steps
 
 [Workflow Export](./workflow.json) — importable n8n JSON
 
