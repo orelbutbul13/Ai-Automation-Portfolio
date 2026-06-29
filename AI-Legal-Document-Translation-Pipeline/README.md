@@ -8,9 +8,9 @@ Client project — US-based certified legal translation firm (NDA).
 
 ## Project Documentation
 
-- [View Presentation](./presentation.html)
-- [View Technical Reference](./demo.html)
-- [Workflow Export (n8n JSON)](./workflow/workflow.json)
+- [View Slide Deck Presentation](./presentation.html) — 16-slide deck covering architecture, all 3 AI prompts, challenges, node reference, and live demo steps
+- [View Technical Reference & Prompt Documentation](./demo.html) — full prompt text, architecture diagram, bug table, demo walkthrough
+- [Workflow Export (n8n JSON)](./workflow.json) — importable into any n8n instance
 
 ---
 
