@@ -4,9 +4,7 @@ End-to-end automation for certified legal document translation built in n8n with
 
 Client project for a US-based certified legal translation firm (NDA).
 
-## Project Documentation
-
-[Live Project Page](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html) — full pipeline walkthrough: architecture, AI prompts, bug table, business analysis, and demo steps
+**[→ View Live Project Page](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html)** — full pipeline walkthrough: architecture, all 3 AI prompts, bug table, business analysis, and live demo steps
 
 [Workflow Export](./workflow.json) — importable n8n JSON
 
