@@ -18,7 +18,7 @@ Certified legal translation firms handle documents that demand accuracy at a lev
 
 ## Pipeline Architecture
 
-**[→ View Workflow Screenshot](screenshots/workflow.png)** — full n8n canvas showing all pipeline stages
+**[→ View Workflow Screenshot](screenshots/workflow.png)** Full n8n canvas showing all pipeline stages.
 
 ```
 Drive Trigger → Download → Hash Check → Move to Processing
@@ -62,9 +62,9 @@ Self-hosted n8n means all client documents stay on local infrastructure with no 
 
 ## Pipeline Screenshots
 
-**[→ View Review Email Screenshot](screenshots/review-email-v2.png)** — pipeline paused waiting for human decision
+**[→ View Review Email Screenshot](screenshots/review-email-v2.png)** Pipeline paused waiting for human decision.
 
-**[→ View Completion Email Screenshot](screenshots/completion-email-v2.png)** — certified translation approved and delivered
+**[→ View Completion Email Screenshot](screenshots/completion-email-v2.png)** Certified translation approved and delivered.
 
 ## Challenges Solved
 
