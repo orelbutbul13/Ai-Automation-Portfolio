@@ -493,60 +493,25 @@ Output:
 
 <hr class="divider">
 
-<!-- LIVE DEMO STEPS -->
+<!-- PIPELINE IN ACTION -->
 <section>
-  <h2>Live Demo — Step by Step</h2>
-  <p class="section-sub">How to run this in front of your audience in n8n.</p>
+  <h2>Pipeline in Action</h2>
+  <p class="section-sub">Real output from a live test run — Turkish birth certificate processed end-to-end.</p>
 
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-content">
-        <h4>Open n8n and show the workflow</h4>
-        <p>Go to <code>http://localhost:5678</code> → open <strong>AI Legal Translation Automation</strong>. Zoom out so all nodes are visible. Walk through the stages left to right.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div>
+      <div style="font-size:0.8rem;font-weight:700;color:#7dd3fc;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Review Email — Pipeline Paused</div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;overflow:hidden;">
+        <img src="https://raw.githubusercontent.com/orelbutbul13/Ai-Automation-Portfolio/main/AI-Legal-Document-Translation-Pipeline/screenshots/review-email-v2.png" alt="Review notification email" style="width:100%;display:block;">
       </div>
+      <p style="font-size:0.78rem;color:#64748b;margin-top:8px;">Reviewer receives email with document details, flagged terms, and a form link. Pipeline is fully suspended at zero compute cost until they respond.</p>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-content">
-        <h4>Show the input file in Google Drive</h4>
-        <p>Open Google Drive → Legal-Inbox folder. Show the scanned Turkish birth certificate PDF waiting there. Explain: "This is the client's document. It just appeared in our intake folder."</p>
+    <div>
+      <div style="font-size:0.8rem;font-weight:700;color:#4ade80;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Completion Email — Translation Delivered</div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;overflow:hidden;">
+        <img src="https://raw.githubusercontent.com/orelbutbul13/Ai-Automation-Portfolio/main/AI-Legal-Document-Translation-Pipeline/screenshots/completion-email-v2.png" alt="Completion email" style="width:100%;display:block;">
       </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-content">
-        <h4>Trigger the workflow manually</h4>
-        <p>Back in n8n — click the <strong>"New File in Inbox"</strong> node (leftmost node). Click <strong>"Fetch Test Event"</strong>. The workflow starts running. Watch each node light up green.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-content">
-        <h4>Pipeline pauses at Human Review</h4>
-        <p>The <strong>"Human Review"</strong> node turns orange — pipeline is waiting. Open Gmail → you received a <em>"Translation Ready for Review"</em> email with the form link. Click it.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div class="step-content">
-        <h4>Fill the review form</h4>
-        <p>Enter your name, choose "Approve", optionally add notes, submit. Back in n8n — the Human Review node turns green and the pipeline resumes automatically.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">6</div>
-      <div class="step-content">
-        <h4>Completion email arrives</h4>
-        <p>Gmail receives <em>"Certified Translation Complete"</em> with the certificate details and a <strong>"View Certified Translation in Drive"</strong> button.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">7</div>
-      <div class="step-content">
-        <h4>Click the Drive link — show the Google Doc</h4>
-        <p>The button opens a fully formatted Google Doc: agency letterhead, certificate ID, translation date, language pair, full translated text, reviewer signature block. This is the deliverable.</p>
-      </div>
+      <p style="font-size:0.78rem;color:#64748b;margin-top:8px;">On approval, the certified Google Doc is assembled and delivered. Certificate ID, reviewer name, language pair, and glossary terms added — all logged automatically.</p>
     </div>
   </div>
 </section>
