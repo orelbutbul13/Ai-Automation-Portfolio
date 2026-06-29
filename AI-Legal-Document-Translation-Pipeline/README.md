@@ -64,11 +64,11 @@ Self-hosted n8n means all client documents stay on local infrastructure with no 
 
 **Review notification email — pipeline paused waiting for human decision**
 
-![Review email](screenshots/review-email.png)
+![Review email](screenshots/review-email-v2.png)
 
 **Completion email — certified translation approved and delivered**
 
-![Completion email](screenshots/completion-email.png)
+![Completion email](screenshots/completion-email-v2.png)
 
 ## Challenges Solved
 
