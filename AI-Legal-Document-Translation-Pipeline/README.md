@@ -6,7 +6,7 @@ Client project for a US-based certified legal translation firm (NDA).
 
 **[→ View Live Project Page](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html)** — full pipeline walkthrough: architecture, all 3 AI prompts, bug table, business analysis, and live demo steps
 
-[Workflow Export](./workflow.json) — importable n8n JSON
+**[→ View Case Study](https://docs.google.com/document/d/1kQ82J-G70o8zaIZqRFqnBnU4GPAoxFJWc5-wmiYCtEE/edit)** — full written case study including all project links, privacy architecture decision, and outcomes
 
 ## Overview
 
