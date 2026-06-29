@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Legal Document Translation Pipeline</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+
+  /* NAV */
+  nav { background: #1e293b; padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 100; }
+  nav .logo { font-size: 1.3rem; font-weight: 700; color: #38bdf8; letter-spacing: 1px; }
+  nav .tagline { font-size: 0.8rem; color: #94a3b8; }
+  nav .badge { background: #0ea5e9; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); text-align: center; padding: 80px 40px 60px; border-bottom: 1px solid #1e3a5f; }
+  .hero h1 { font-size: 2.8rem; font-weight: 800; color: #f8fafc; margin-bottom: 16px; }
+  .hero h1 span { color: #38bdf8; }
+  .hero p { font-size: 1.1rem; color: #94a3b8; max-width: 680px; margin: 0 auto 32px; }
+  .hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .pill { background: #1e3a5f; color: #7dd3fc; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid #0ea5e9; }
+
+  /* SECTIONS */
+  section { padding: 60px 40px; max-width: 1100px; margin: 0 auto; }
+  h2 { font-size: 1.7rem; font-weight: 700; color: #f1f5f9; margin-bottom: 8px; }
+  .section-sub { color: #64748b; margin-bottom: 40px; font-size: 0.95rem; }
+  .divider { border: none; border-top: 1px solid #1e293b; margin: 0; }
+
+  /* PIPELINE FLOW */
+  .pipeline { display: flex; align-items: flex-start; gap: 0; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+  .stage { display: flex; flex-direction: column; align-items: center; min-width: 120px; max-width: 140px; }
+  .stage-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 8px; }
+  .stage-label { font-size: 0.72rem; font-weight: 600; color: #cbd5e1; text-align: center; line-height: 1.3; }
+  .stage-sub { font-size: 0.65rem; color: #64748b; text-align: center; margin-top: 3px; }
+  .arrow { color: #334155; font-size: 1.5rem; margin: 0 2px; padding-top: 14px; }
+  .s1 { background: #1e3a5f; }
+  .s2 { background: #1a3348; }
+  .s3 { background: #1e293b; border: 1px solid #334155; }
+
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; }
+  .card h3 { font-size: 1rem; font-weight: 700; color: #f1f5f9; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 0.85rem; color: #94a3b8; line-height: 1.6; }
+  .card .tag { display: inline-block; background: #0f2744; color: #38bdf8; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px; }
+
+  /* BUGS TABLE */
+  .bugs { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .bugs th { background: #1e3a5f; color: #7dd3fc; font-size: 0.8rem; font-weight: 600; padding: 10px 16px; text-align: left; }
+  .bugs td { padding: 12px 16px; font-size: 0.82rem; border-bottom: 1px solid #1e293b; vertical-align: top; }
+  .bugs tr:hover td { background: #1e293b; }
+  .bug-sev { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.72rem; }
+  .sev-high { background: #450a0a; color: #f87171; }
+  .sev-med  { background: #431407; color: #fb923c; }
+  .fix-col  { color: #4ade80; font-family: monospace; font-size: 0.78rem; }
+
+  /* DEMO STEPS */
+  .steps { counter-reset: step; display: flex; flex-direction: column; gap: 16px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; background: #1e293b; border-radius: 12px; padding: 20px; border-left: 3px solid #0ea5e9; }
+  .step-num { counter-increment: step; background: #0ea5e9; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+  .step-content h4 { font-size: 0.95rem; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .step-content p { font-size: 0.82rem; color: #94a3b8; }
+  .step-content code { background: #0f172a; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; }
+
+  /* BUSINESS ANALYSIS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media(max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+  .analysis-box { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; }
+  .analysis-box h3 { font-size: 0.95rem; color: #7dd3fc; margin-bottom: 12px; font-weight: 700; }
+  .analysis-box ul { list-style: none; }
+  .analysis-box ul li { font-size: 0.83rem; color: #94a3b8; padding: 5px 0; border-bottom: 1px solid #1e293b; }
+  .analysis-box ul li::before { content: "→ "; color: #0ea5e9; font-weight: 700; }
+
+  /* STAT STRIP */
+  .stats { display: flex; gap: 0; background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; margin-top: 40px; }
+  .stat { flex: 1; text-align: center; padding: 24px 16px; border-right: 1px solid #334155; }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-size: 2rem; font-weight: 800; color: #38bdf8; }
+  .stat-label { font-size: 0.75rem; color: #64748b; margin-top: 4px; }
+
+  /* FOOTER */
+  footer { background: #1e293b; border-top: 1px solid #334155; text-align: center; padding: 24px; font-size: 0.8rem; color: #475569; }
+
+  /* HIGHLIGHT */
+  .highlight { background: #0c1a2e; border: 1px solid #1e3a5f; border-radius: 8px; padding: 16px 20px; margin-top: 12px; font-size: 0.85rem; color: #7dd3fc; }
+  .highlight strong { color: #f1f5f9; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div>
+    <div class="logo">ABC LING</div>
+    <div class="tagline">AI Legal Translation Pipeline</div>
+  </div>
+  <div class="badge">AI Legal Translation Pipeline — 2026</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Legal Translation, <span>Automated.</span></h1>
+  <p>An end-to-end AI pipeline that takes a scanned Turkish legal document, extracts text, protects client PII, translates with glossary consistency, routes for human review, and generates a certified translation — fully automated in n8n.</p>
+  <div class="hero-badges">
+    <span class="pill">n8n Workflow Automation</span>
+    <span class="pill">GPT-4o Vision OCR</span>
+    <span class="pill">PII Tokenization</span>
+    <span class="pill">Human-in-the-Loop</span>
+    <span class="pill">Google Drive + Gmail</span>
+    <span class="pill">Google Docs Output</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PIPELINE -->
+<section>
+  <h2>The Pipeline</h2>
+  <p class="section-sub">7 stages from raw scanned PDF to certified Google Doc — all connected, all automated.</p>
+
+  <div class="pipeline">
+    <div class="stage">
+      <div class="stage-icon s1">📄</div>
+      <div class="stage-label">1. Intake & OCR</div>
+      <div class="stage-sub">Google Drive trigger · GPT-4o vision extracts text per page</div>
+    </div>
+    <div class="arrow">›</div>
+    <div class="stage">
+      <div class="stage-icon s1">🔒</div>
+      <div class="stage-label">2. PII Tokenization</div>
+      <div class="stage-sub">Names/dates/addresses replaced with [PERSON_1] tokens before AI sees them</div>
+    </div>
+    <div class="arrow">›</div>
+    <div class="stage">
+      <div class="stage-icon s1">📚</div>
+      <div class="stage-label">3. Glossary Translation</div>
+      <div class="stage-sub">Legal term lookup · GPT-4o translates TR→EN · new terms saved back</div>
+    </div>
+    <div class="arrow">›</div>
+    <div class="stage">
+      <div class="stage-icon s1">🔓</div>
+      <div class="stage-label">4. Detokenization</div>
+      <div class="stage-sub">Real names restored into translated text · token map discarded</div>
+    </div>
+    <div class="arrow">›</div>
+    <div class="stage">
+      <div class="stage-icon s2">👤</div>
+      <div class="stage-label">5. Human Review</div>
+      <div class="stage-sub">Email notification · n8n form pauses pipeline · reviewer approves or rejects</div>
+    </div>
+    <div class="arrow">›</div>
+    <div class="stage">
+      <div class="stage-icon s1">📜</div>
+      <div class="stage-label">6. Certificate Assembly</div>
+      <div class="stage-sub">HTML certificate generated · uploaded to Drive as Google Doc</div>
+    </div>
+    <div class="arrow">›</div>
+    <div class="stage">
+      <div class="stage-icon s1">✅</div>
+      <div class="stage-label">7. Delivery</div>
+      <div class="stage-sub">Completion email · Google Doc link · source archived · log updated</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Pipeline Stages</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">n8n Nodes</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">PII Exposed to AI</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Human Touchpoint</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Automated Delivery</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PRIVACY ARCHITECTURE -->
+<section>
+  <h2>Privacy-Preserving Architecture</h2>
+  <p class="section-sub">The key design decision: AI never sees real client data.</p>
+
+  <div class="two-col">
+    <div class="analysis-box">
+      <h3>The Problem with Sending Raw Docs to AI</h3>
+      <ul>
+        <li>Legal documents contain names, DOBs, addresses, case numbers</li>
+        <li>Sending raw scans to OpenAI = client PII stored on third-party servers</li>
+        <li>Violates client confidentiality in legal/immigration contexts</li>
+        <li>No control over how data is used for model training</li>
+      </ul>
+    </div>
+    <div class="analysis-box">
+      <h3>The Tokenization Solution</h3>
+      <ul>
+        <li>Stage 1 (OCR) sees raw scan — unavoidable for text extraction</li>
+        <li>Stage 2 replaces all PII with stable tokens before translation</li>
+        <li>Translation AI only sees [PERSON_1], [DATE_1], [ADDRESS_1]</li>
+        <li>Stage 4 restores real values from an in-memory map that is then discarded</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>Known tradeoff:</strong> Stage 1 OCR still sends the raw scan image to GPT-4o Vision. The upgrade path for production is a self-hosted OCR (Tesseract / PaddleOCR) or a HIPAA/BAA-covered vision API — keeping all raw document data on-premises.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ARCHITECTURE DIAGRAM -->
+<section>
+  <h2>Architecture Diagram</h2>
+  <p class="section-sub">How the n8n nodes connect — the full data flow from PDF to certified Google Doc.</p>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:32px;overflow-x:auto;">
+    <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:700px;font-family:Arial,sans-serif;">
+      <!-- Row 1: Intake -->
+      <g transform="translate(20,20)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#0ea5e9" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Google Drive</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Trigger</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">New File in Inbox</text>
+      </g>
+      <line x1="140" y1="45" x2="170" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(170,20)">
+        <rect width="110" height="50" rx="8" fill="#1e3a5f" stroke="#0ea5e9" stroke-width="1.5"/>
+        <text x="55" y="22" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Download +</text>
+        <text x="55" y="35" text-anchor="middle" fill="#7dd3fc" font-size="9">Hash Check</text>
+        <text x="55" y="47" text-anchor="middle" fill="#64748b" font-size="8">dedup guard</text>
+      </g>
+      <line x1="280" y1="45" x2="310" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(310,20)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">OCR</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-4o Vision</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">extracts text/page</text>
+      </g>
+      <line x1="430" y1="45" x2="460" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(460,20)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">PII Detection</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-4o</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">finds names/dates</text>
+      </g>
+      <line x1="580" y1="45" x2="610" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(610,20)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Tokenize PII</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Code node</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">[PERSON_1] etc.</text>
+      </g>
+      <line x1="730" y1="45" x2="760" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(760,20)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Glossary Lookup</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Google Sheets</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">known legal terms</text>
+      </g>
+
+      <!-- Down arrow from Glossary to Translation -->
+      <line x1="820" y1="70" x2="820" y2="140" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Row 2: Translation + Review -->
+      <g transform="translate(760,140)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Translate</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-4o</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">any lang pair</text>
+      </g>
+      <line x1="760" y1="165" x2="730" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(610,140)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Detokenize</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Code node</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">restore real names</text>
+      </g>
+      <line x1="610" y1="165" x2="580" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(460,140)">
+        <rect width="120" height="50" rx="8" fill="#1a3a4f" stroke="#f59e0b" stroke-width="2"/>
+        <text x="60" y="20" text-anchor="middle" fill="#fcd34d" font-size="9" font-weight="bold">Send Review</text>
+        <text x="60" y="33" text-anchor="middle" fill="#fcd34d" font-size="9">Email</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">notify reviewer</text>
+      </g>
+      <line x1="460" y1="165" x2="430" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(310,140)">
+        <rect width="120" height="50" rx="8" fill="#2a1a1a" stroke="#f87171" stroke-width="2"/>
+        <text x="60" y="20" text-anchor="middle" fill="#fca5a5" font-size="9" font-weight="bold">Human Review</text>
+        <text x="60" y="33" text-anchor="middle" fill="#fca5a5" font-size="9">WAIT node</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">pipeline pauses</text>
+      </g>
+      <line x1="310" y1="165" x2="280" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(170,140)">
+        <rect width="110" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+        <text x="55" y="22" text-anchor="middle" fill="#94a3b8" font-size="9" font-weight="bold">Apply Review</text>
+        <text x="55" y="35" text-anchor="middle" fill="#94a3b8" font-size="9">Decision</text>
+        <text x="55" y="47" text-anchor="middle" fill="#64748b" font-size="8">approve / reject</text>
+      </g>
+      <line x1="170" y1="165" x2="140" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(20,140)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Assemble</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Certificate</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">HTML → binary</text>
+      </g>
+
+      <!-- Down arrow from Assemble to Upload -->
+      <line x1="80" y1="190" x2="80" y2="260" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Row 3: Delivery -->
+      <g transform="translate(20,260)">
+        <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Upload to Drive</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">HTTP Request</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">creates Google Doc</text>
+      </g>
+      <line x1="140" y1="285" x2="170" y2="285" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(170,260)">
+        <rect width="110" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+        <text x="55" y="22" text-anchor="middle" fill="#94a3b8" font-size="9" font-weight="bold">Log + Archive</text>
+        <text x="55" y="35" text-anchor="middle" fill="#94a3b8" font-size="9">Sheets + Drive</text>
+        <text x="55" y="47" text-anchor="middle" fill="#64748b" font-size="8">record keeping</text>
+      </g>
+      <line x1="280" y1="285" x2="310" y2="285" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(310,260)">
+        <rect width="120" height="50" rx="8" fill="#1a3a4f" stroke="#f59e0b" stroke-width="2"/>
+        <text x="60" y="20" text-anchor="middle" fill="#fcd34d" font-size="9" font-weight="bold">Completion</text>
+        <text x="60" y="33" text-anchor="middle" fill="#fcd34d" font-size="9">Email</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">Google Doc link</text>
+      </g>
+
+      <!-- Reject branch -->
+      <line x1="225" y1="165" x2="225" y2="360" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+      <g transform="translate(170,340)">
+        <rect width="110" height="40" rx="8" fill="#2a1010" stroke="#ef4444" stroke-width="1.5"/>
+        <text x="55" y="16" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold">Reject Path</text>
+        <text x="55" y="30" text-anchor="middle" fill="#64748b" font-size="8">needs-review folder</text>
+      </g>
+
+      <!-- Arrow markers -->
+      <defs>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#334155"/>
+        </marker>
+      </defs>
+
+      <!-- Labels -->
+      <text x="450" y="410" text-anchor="middle" fill="#334155" font-size="9">n8n Workflow — AI Legal Document Translation Pipeline</text>
+    </svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROMPT DOCUMENTATION -->
+<section>
+  <h2>Prompt Documentation</h2>
+  <p class="section-sub">The exact system prompts sent to GPT-4o at each AI stage.</p>
+
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    <div class="card">
+      <div class="tag">STAGE 1 — OCR / TEXT EXTRACTION</div>
+      <h3>System Prompt — Extract Document Text</h3>
+      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a document extraction specialist for a certified legal translation pipeline.
+You process scanned legal documents (court orders, certificates, transcripts,
+affidavits) in ANY source language — never assume a specific language pair.
+
+Rules:
+1. PRESERVE READING ORDER. Extract text top-to-bottom, left-to-right exactly as
+   a human reader would. Never reorder, summarize, or omit.
+2. DETECT PAGE BOUNDARIES. Return one entry per page with pageNumber, text, and
+   flaggedElements (stamps, seals, handwritten annotations, watermarks).
+3. FLAG special elements — don't silently drop stamps or handwritten dates.
+4. Return ONLY valid JSON. No markdown fences.
+
+Output format:
+{
+  "documentType": "birth_certificate | divorce_decree | transcript | other",
+  "detectedLanguage": "ISO 639-1 code",
+  "pageCount": N,
+  "pages": [{ "pageNumber": 1, "text": "...", "flaggedElements": [] }]
+}</pre>
+    </div>
+
+    <div class="card">
+      <div class="tag">STAGE 2 — PII DETECTION</div>
+      <h3>System Prompt — Detect PII</h3>
+      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a PII detector for a certified legal translation pipeline that must protect
+privacy before any text leaves this system for translation. You work with documents
+in ANY language.
+
+Find all PII: full names, given names, surnames, dates of birth, addresses,
+phone numbers, email addresses, ID/passport/case numbers, financial account numbers.
+
+For each item return:
+{
+  "entities": [
+    { "type": "PERSON|DATE|ADDRESS|ID|PHONE|EMAIL|CASE_NUMBER",
+      "value": "exact text as it appears",
+      "token": "[PERSON_1]" }
+  ]
+}
+
+Use stable sequential tokens per type: [PERSON_1], [PERSON_2], [DATE_1], etc.
+The same value appearing twice must get the same token.
+Return ONLY valid JSON.</pre>
+    </div>
+
+    <div class="card">
+      <div class="tag">STAGE 3 — AI TRANSLATION</div>
+      <h3>System Prompt — Translate Document</h3>
+      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a certified legal translator in a privacy-preserving pipeline.
+You translate complete legal documents between ANY two languages —
+you will be told the exact source and target language codes.
+
+Rules:
+1. COMPLETE translation — never summarize, shorten, or omit content.
+   Preserve structure: numbered clauses, headings, line breaks.
+2. Placeholder tokens like [PERSON_1], [DATE_1], [ADDRESS_2] represent
+   information removed for privacy. PRESERVE them verbatim in the translation —
+   never translate, paraphrase, or remove them.
+3. Use FORMAL LEGAL REGISTER. Terminology must be appropriate for court filings
+   and official certifications.
+4. GLOSSARY INJECTION: required term translations will be provided.
+   You MUST use these exact translations for the listed terms.
+5. FLAG any term you had to guess (no established legal equivalent).
+6. Return ONLY valid JSON.
+
+Output:
+{
+  "pages": [{ "pageNumber": 1, "text": "translated text", "flaggedElements": [] }],
+  "flaggedTranslations": ["term1", "term2"],
+  "newGlossaryTerms": [{ "source": "...", "target": "...", "context": "..." }]
+}</pre>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BUGS I FOUND AND FIXED -->
+<section>
+  <h2>What Broke (and How I Fixed It)</h2>
+  <p class="section-sub">Real engineering work — bugs found during development and the exact fixes applied.</p>
+
+  <table class="bugs">
+    <thead>
+      <tr>
+        <th>Bug</th>
+        <th>Severity</th>
+        <th>Root Cause</th>
+        <th>Fix Applied</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Google Doc opened as empty file — "No preview available"</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>Drive multipart upload had an extra <code>\r\n</code> before the boundary, breaking MIME parsing. Drive created a 0-byte unnamed file instead of a Google Doc.</td>
+        <td class="fix-col">Changed multipartBody from string rawBody to binary Buffer. Set Content-Type via binary field mimeType so n8n passes it correctly to Drive API.</td>
+      </tr>
+      <tr>
+        <td>3 emails sent per document instead of 2</td>
+        <td><span class="bug-sev sev-med">MED</span></td>
+        <td>Intake notification and filing attorney nodes were active by default, firing on every run even when no attorney email was configured.</td>
+        <td class="fix-col">Disabled Send Intake Notification and Send to Filing Attorney nodes. Only reviewer notification + completion email remain active.</td>
+      </tr>
+      <tr>
+        <td>Completion email showed N/A for reviewer name, decision, notes</td>
+        <td><span class="bug-sev sev-med">MED</span></td>
+        <td>After Move Source to Archive, the node output is Drive metadata — the pipeline data (reviewer info, cert ID, doc URL) was lost.</td>
+        <td class="fix-col">Added "Restore Pipeline" Code node between Move to Archive and Send Completion Notification. Pulls data back from Merge Doc Result using $() reference.</td>
+      </tr>
+      <tr>
+        <td>Workflow crashed at Assemble Certificate — "Cannot read .slice of undefined"</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td><code>data.fileHash.slice(0,8)</code> crashed when fileHash was undefined after Apply Review Decision couldn't recover pipeline state from the form data.</td>
+        <td class="fix-col">Changed to <code>(data.fileHash || 'NOCERT').slice(0,8)</code> with null-safe fallback.</td>
+      </tr>
+      <tr>
+        <td>Google Drive trigger never detected new files after restart</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>Deactivating/reactivating the workflow resets the trigger checkpoint to "now" — files already in the Inbox were invisible to the next poll.</td>
+        <td class="fix-col">Manually set <code>staticData['node:New File in Inbox'].lastTimeChecked</code> to a time before the upload via the n8n API.</td>
+      </tr>
+      <tr>
+        <td>$helpers.httpRequestWithAuthentication not available in Code node</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>n8n Code nodes run in an external task runner where $helpers is not defined — discovered when attempting to call Drive API from inside a Code node.</td>
+        <td class="fix-col">Replaced Code node API call with a dedicated HTTP Request node using predefined OAuth2 credential type, which handles token injection automatically.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider">
+
+<!-- LIVE DEMO STEPS -->
+<section>
+  <h2>Live Demo — Step by Step</h2>
+  <p class="section-sub">How to run this in front of your audience in n8n.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Open n8n and show the workflow</h4>
+        <p>Go to <code>http://localhost:5678</code> → open <strong>AI Legal Translation Automation</strong>. Zoom out so all nodes are visible. Walk through the stages left to right.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Show the input file in Google Drive</h4>
+        <p>Open Google Drive → Legal-Inbox folder. Show the scanned Turkish birth certificate PDF waiting there. Explain: "This is the client's document. It just appeared in our intake folder."</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Trigger the workflow manually</h4>
+        <p>Back in n8n — click the <strong>"New File in Inbox"</strong> node (leftmost node). Click <strong>"Fetch Test Event"</strong>. The workflow starts running. Watch each node light up green.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Pipeline pauses at Human Review</h4>
+        <p>The <strong>"Human Review"</strong> node turns orange — pipeline is waiting. Open Gmail → you received a <em>"Translation Ready for Review"</em> email with the form link. Click it.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Fill the review form</h4>
+        <p>Enter your name, choose "Approve", optionally add notes, submit. Back in n8n — the Human Review node turns green and the pipeline resumes automatically.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>Completion email arrives</h4>
+        <p>Gmail receives <em>"Certified Translation Complete"</em> with the certificate details and a <strong>"View Certified Translation in Drive"</strong> button.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <h4>Click the Drive link — show the Google Doc</h4>
+        <p>The button opens a fully formatted Google Doc: agency letterhead, certificate ID, translation date, language pair, full translated text, reviewer signature block. This is the deliverable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BUSINESS ANALYSIS -->
+<section>
+  <h2>Business Analysis — Simplicity vs. Privacy</h2>
+  <p class="section-sub">The 1-page analysis: why the tokenization architecture was the right call for a legal translation firm.</p>
+
+  <div class="two-col">
+    <div class="analysis-box">
+      <h3>Simple Architecture (no tokenization)</h3>
+      <ul>
+        <li>Send raw scanned PDF directly to GPT-4o</li>
+        <li>Faster to build — 2-3 nodes instead of 8</li>
+        <li>No mapping/restore logic</li>
+        <li>Client PII stored on OpenAI servers</li>
+        <li>Risk: GDPR / attorney-client privilege violations</li>
+        <li>Not suitable for court-certified translations</li>
+      </ul>
+    </div>
+    <div class="analysis-box">
+      <h3>Privacy-Preserving Architecture (this build)</h3>
+      <ul>
+        <li>PII tokenized before any AI call</li>
+        <li>AI model never sees real client identity</li>
+        <li>Token map lives only in execution memory</li>
+        <li>Glossary grows with every document</li>
+        <li>Human review ensures legal accountability</li>
+        <li>Scales to any language pair — swap the prompt</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top:24px">
+    <strong>Bottom line:</strong> For a firm serving immigration courts and law firms, the extra complexity of tokenization is not overhead — it is the product. The architecture makes the automation legally defensible and client-trustworthy in a way that a raw-send approach never can be.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STACK -->
+<section>
+  <h2>Tech Stack</h2>
+  <p class="section-sub">Everything used to build this pipeline.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="tag">ORCHESTRATION</div>
+      <h3>n8n (self-hosted)</h3>
+      <p>All pipeline logic, branching, error handling, and node connections. 20+ nodes including Google Drive, Gmail, HTTP Request, Code, Wait, and If nodes.</p>
+    </div>
+    <div class="card">
+      <div class="tag">AI / LLM</div>
+      <h3>OpenAI GPT-4o</h3>
+      <p>Multimodal vision for OCR text extraction from scanned documents. Separate call for TR→EN legal translation with glossary injection and PII token preservation.</p>
+    </div>
+    <div class="card">
+      <div class="tag">STORAGE</div>
+      <h3>Google Drive + Sheets</h3>
+      <p>Drive for document intake (Inbox), certified output (Approved), and archived source files. Sheets for glossary terms and processed document log.</p>
+    </div>
+    <div class="card">
+      <div class="tag">DELIVERY</div>
+      <h3>Gmail + Google Docs</h3>
+      <p>Gmail for reviewer notification and completion email. Drive API multipart upload converts HTML certificate to a native Google Doc with full formatting.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by Orel Butbul &nbsp;|&nbsp; AI Legal Document Translation Pipeline &nbsp;|&nbsp; 2026
+</footer>
+
+</body>
+</html>
