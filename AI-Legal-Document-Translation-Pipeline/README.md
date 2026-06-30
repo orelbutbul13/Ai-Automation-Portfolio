@@ -4,17 +4,17 @@ End-to-end automation for certified legal document translation built in n8n with
 
 Client project for a US-based certified legal translation firm (NDA).
 
-**[→ View Live Project Page](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html)** — full pipeline walkthrough: architecture, all 3 AI prompts, bug table, business analysis, and real pipeline output screenshots
+**[→ View Live Project Page](https://orelbutbul13.github.io/Ai-Automation-Portfolio/AI-Legal-Document-Translation-Pipeline/demo.html)** Full pipeline walkthrough: architecture, all 3 AI prompts, bug table, business analysis, and real pipeline output screenshots
 
-**[→ View Case Study](https://docs.google.com/document/d/16NSTzLTynZVfyxZReohpFcyNgvYT1bg8Ncot4laQRlk/edit)** — full written case study including all project links, privacy architecture decision, and outcomes
+**[→ View Case Study](https://docs.google.com/document/d/16NSTzLTynZVfyxZReohpFcyNgvYT1bg8Ncot4laQRlk/edit)** Full written case study including all project links, privacy architecture decision, and outcomes
 
 ## Overview
 
-This pipeline replaces a manual certified translation process. A scanned legal document arrives in a Google Drive folder. GPT-4o Vision extracts the text. A PII detection step replaces all client names, addresses, and ID numbers with placeholder tokens before any translation call, so the AI model never sees real client identities. The tokenized text is translated in formal legal register using a glossary of known term pairs, which grows with every document processed. Execution then pauses at a human review step — a certified reviewer approves, edits, or rejects the translation via a form before any certified document is produced. On approval, the translation is assembled into a formatted Google Doc with certificate metadata and delivered by email.
+This pipeline replaces a manual certified translation process. A scanned legal document arrives in a Google Drive folder. GPT-4o Vision extracts the text. A PII detection step replaces all client names, addresses, and ID numbers with placeholder tokens before any translation call, so the AI model never sees real client identities. The tokenized text is translated in formal legal register using a glossary of known term pairs, which grows with every document processed. Execution then pauses at a human review step. A certified reviewer approves, edits, or rejects the translation via a form before any certified document is produced. On approval, the translation is assembled into a formatted Google Doc with certificate metadata and delivered by email.
 
 ## Business Problem
 
-Certified legal translation firms handle documents that demand accuracy at a level where a single inconsistent term can cause a court filing to be rejected. A case may span 10 or more documents — a divorce decree, death certificate, marriage certificate, bank statements — and every one must use identical legal terminology. Manual translation is slow, inconsistency across translators is a real risk, and sending raw client documents containing passport numbers and home addresses to third-party AI services raises serious compliance concerns. This pipeline addresses all three.
+Certified legal translation firms handle documents that demand accuracy at a level where a single inconsistent term can cause a court filing to be rejected. A case may span 10 or more documents: a divorce decree, death certificate, marriage certificate, bank statements. Every one must use identical legal terminology. Manual translation is slow, inconsistency across translators is a real risk, and sending raw client documents containing passport numbers and home addresses to third-party AI services raises serious compliance concerns. This pipeline addresses all three.
 
 ## Pipeline Architecture
 
@@ -37,13 +37,13 @@ The pipeline has three visual sections in n8n. The top row is the seven-stage ha
 
 ## The Three AI Prompts
 
-**Prompt 1 — Document Reading**
+**Prompt 1: Document Reading**
 Sent to GPT-4o Vision with the scanned document image. Instructs the model to extract all text in reading order, detect page boundaries, and explicitly flag stamps, seals, and handwritten annotations rather than silently dropping them. Returns structured JSON per page. Works on any source language without configuration changes.
 
-**Prompt 2 — PII Detection**
+**Prompt 2: PII Detection**
 Sent on the extracted text before any translation call. Identifies every name, address, phone number, ID number, date of birth, and case number. Returns a structured entity list with a stable sequential token assigned to each value. The same name always receives the same token across all pages. A Code node performs the actual substitution and the token map lives only in execution memory, never written to any file or log.
 
-**Prompt 3 — Legal Translation**
+**Prompt 3: Legal Translation**
 Sent on the tokenized text with glossary term pairs injected. Instructs the model to produce a complete translation without summarizing or omitting anything, preserve all placeholder tokens verbatim, use formal legal register appropriate for court filings, follow the injected glossary terms exactly, and flag any term where no established legal equivalent exists. Returns the translated pages, a list of flagged terms, and any new glossary terms to be saved back to the sheet.
 
 ## Tech Stack
@@ -78,7 +78,7 @@ Self-hosted n8n means all client documents stay on local infrastructure with no 
 
 ## Key Outcomes
 
-Full pipeline from scanned PDF to certified Google Doc with zero manual steps in the standard approval path. Client PII is never exposed to the translation model, enforced by the architecture rather than by trust or policy. The glossary compounds in quality with every document processed, automatically enforcing terminology consistency across every document in a case file. Any language pair is supported with no configuration changes. Every failure is caught, logged, and escalated — nothing fails silently.
+Full pipeline from scanned PDF to certified Google Doc with zero manual steps in the standard approval path. Client PII is never exposed to the translation model, enforced by the architecture rather than by trust or policy. The glossary compounds in quality with every document processed, automatically enforcing terminology consistency across every document in a case file. Any language pair is supported with no configuration changes. Every failure is caught, logged, and escalated. Nothing fails silently.
 
 ## Skills Demonstrated
 
