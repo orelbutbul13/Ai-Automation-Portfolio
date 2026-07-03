@@ -95,13 +95,13 @@
     <div class="logo">AI LEGAL</div>
     <div class="tagline">AI Legal Translation Pipeline</div>
   </div>
-  <div class="badge">AI Legal Translation Pipeline — 2026</div>
+  <div class="badge">AI Legal Translation Pipeline · 2026</div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <h1>Legal Translation, <span>Automated.</span></h1>
-  <p>An end-to-end AI pipeline that takes a scanned Turkish legal document, extracts text, protects client PII, translates with glossary consistency, routes for human review, and generates a certified translation — fully automated in n8n.</p>
+  <p>An end-to-end AI pipeline that takes a scanned Turkish legal document, extracts text, protects client PII, translates with glossary consistency, routes for human review, and generates a certified translation. Fully automated in n8n.</p>
   <div class="hero-badges">
     <span class="pill">n8n Workflow Automation</span>
     <span class="pill">GPT-4o Vision OCR</span>
@@ -117,7 +117,7 @@
 <!-- PIPELINE -->
 <section>
   <h2>The Pipeline</h2>
-  <p class="section-sub">7 stages from raw scanned PDF to certified Google Doc — all connected, all automated.</p>
+  <p class="section-sub">7 stages from raw scanned PDF to certified Google Doc. All connected, all automated.</p>
 
   <div class="pipeline">
     <div class="stage">
@@ -192,7 +192,7 @@
     <div class="analysis-box">
       <h3>The Tokenization Solution</h3>
       <ul>
-        <li>Stage 1 (OCR) sees raw scan — unavoidable for text extraction</li>
+        <li>Stage 1 (OCR) sees raw scan. Unavoidable for text extraction</li>
         <li>Stage 2 replaces all PII with stable tokens before translation</li>
         <li>Translation AI only sees [PERSON_1], [DATE_1], [ADDRESS_1]</li>
         <li>Stage 4 restores real values from an in-memory map that is then discarded</li>
@@ -210,7 +210,7 @@
 <!-- ARCHITECTURE DIAGRAM -->
 <section>
   <h2>Architecture Diagram</h2>
-  <p class="section-sub">How the n8n nodes connect — the full data flow from PDF to certified Google Doc.</p>
+  <p class="section-sub">How the n8n nodes connect. The full data flow from PDF to certified Google Doc.</p>
   <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:32px;overflow-x:auto;">
     <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:700px;font-family:Arial,sans-serif;">
       <!-- Row 1: Intake -->
@@ -343,7 +343,7 @@
       </defs>
 
       <!-- Labels -->
-      <text x="450" y="410" text-anchor="middle" fill="#334155" font-size="9">n8n Workflow — AI Legal Document Translation Pipeline</text>
+      <text x="450" y="410" text-anchor="middle" fill="#334155" font-size="9">n8n Workflow: AI Legal Document Translation Pipeline</text>
     </svg>
   </div>
 </section>
@@ -357,18 +357,18 @@
 
   <div style="display:flex;flex-direction:column;gap:20px;">
     <div class="card">
-      <div class="tag">STAGE 1 — OCR / TEXT EXTRACTION</div>
-      <h3>System Prompt — Extract Document Text</h3>
+      <div class="tag">STAGE 1: OCR / TEXT EXTRACTION</div>
+      <h3>System Prompt: Extract Document Text</h3>
       <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a document extraction specialist for a certified legal translation pipeline.
 You process scanned legal documents (court orders, certificates, transcripts,
-affidavits) in ANY source language — never assume a specific language pair.
+affidavits) in ANY source language. Never assume a specific language pair.
 
 Rules:
 1. PRESERVE READING ORDER. Extract text top-to-bottom, left-to-right exactly as
    a human reader would. Never reorder, summarize, or omit.
 2. DETECT PAGE BOUNDARIES. Return one entry per page with pageNumber, text, and
    flaggedElements (stamps, seals, handwritten annotations, watermarks).
-3. FLAG special elements — don't silently drop stamps or handwritten dates.
+3. FLAG special elements. Don't silently drop stamps or handwritten dates.
 4. Return ONLY valid JSON. No markdown fences.
 
 Output format:
@@ -381,8 +381,8 @@ Output format:
     </div>
 
     <div class="card">
-      <div class="tag">STAGE 2 — PII DETECTION</div>
-      <h3>System Prompt — Detect PII</h3>
+      <div class="tag">STAGE 2: PII DETECTION</div>
+      <h3>System Prompt: Detect PII</h3>
       <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a PII detector for a certified legal translation pipeline that must protect
 privacy before any text leaves this system for translation. You work with documents
 in ANY language.
@@ -405,14 +405,14 @@ Return ONLY valid JSON.</pre>
     </div>
 
     <div class="card">
-      <div class="tag">STAGE 3 — AI TRANSLATION</div>
-      <h3>System Prompt — Translate Document</h3>
+      <div class="tag">STAGE 3: AI TRANSLATION</div>
+      <h3>System Prompt: Translate Document</h3>
       <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a certified legal translator in a privacy-preserving pipeline.
 You translate complete legal documents between ANY two languages —
 you will be told the exact source and target language codes.
 
 Rules:
-1. COMPLETE translation — never summarize, shorten, or omit content.
+1. COMPLETE translation. Never summarize, shorten, or omit content.
    Preserve structure: numbered clauses, headings, line breaks.
 2. Placeholder tokens like [PERSON_1], [DATE_1], [ADDRESS_2] represent
    information removed for privacy. PRESERVE them verbatim in the translation —
@@ -439,7 +439,7 @@ Output:
 <!-- BUGS I FOUND AND FIXED -->
 <section>
   <h2>What Broke (and How I Fixed It)</h2>
-  <p class="section-sub">Real engineering work — bugs found during development and the exact fixes applied.</p>
+  <p class="section-sub">Real engineering work. Bugs found during development and the exact fixes applied.</p>
 
   <table class="bugs">
     <thead>
@@ -452,7 +452,7 @@ Output:
     </thead>
     <tbody>
       <tr>
-        <td>Google Doc opened as empty file — "No preview available"</td>
+        <td>Google Doc opened as empty file. No preview available"</td>
         <td><span class="bug-sev sev-high">HIGH</span></td>
         <td>Drive multipart upload had an extra <code>\r\n</code> before the boundary, breaking MIME parsing. Drive created a 0-byte unnamed file instead of a Google Doc.</td>
         <td class="fix-col">Changed multipartBody from string rawBody to binary Buffer. Set Content-Type via binary field mimeType so n8n passes it correctly to Drive API.</td>
@@ -466,11 +466,11 @@ Output:
       <tr>
         <td>Completion email showed N/A for reviewer name, decision, notes</td>
         <td><span class="bug-sev sev-med">MED</span></td>
-        <td>After Move Source to Archive, the node output is Drive metadata — the pipeline data (reviewer info, cert ID, doc URL) was lost.</td>
+        <td>After Move Source to Archive, the node output is Drive metadata. The pipeline data (reviewer info, cert ID, doc URL) was lost.</td>
         <td class="fix-col">Added "Restore Pipeline" Code node between Move to Archive and Send Completion Notification. Pulls data back from Merge Doc Result using $() reference.</td>
       </tr>
       <tr>
-        <td>Workflow crashed at Assemble Certificate — "Cannot read .slice of undefined"</td>
+        <td>Workflow crashed at Assemble Certificate. "Cannot read .slice of undefined"</td>
         <td><span class="bug-sev sev-high">HIGH</span></td>
         <td><code>data.fileHash.slice(0,8)</code> crashed when fileHash was undefined after Apply Review Decision couldn't recover pipeline state from the form data.</td>
         <td class="fix-col">Changed to <code>(data.fileHash || 'NOCERT').slice(0,8)</code> with null-safe fallback.</td>
@@ -478,13 +478,13 @@ Output:
       <tr>
         <td>Google Drive trigger never detected new files after restart</td>
         <td><span class="bug-sev sev-high">HIGH</span></td>
-        <td>Deactivating/reactivating the workflow resets the trigger checkpoint to "now" — files already in the Inbox were invisible to the next poll.</td>
+        <td>Deactivating/reactivating the workflow resets the trigger checkpoint to "now". Files already in the Inbox were invisible to the next poll.</td>
         <td class="fix-col">Manually set <code>staticData['node:New File in Inbox'].lastTimeChecked</code> to a time before the upload via the n8n API.</td>
       </tr>
       <tr>
         <td>$helpers.httpRequestWithAuthentication not available in Code node</td>
         <td><span class="bug-sev sev-high">HIGH</span></td>
-        <td>n8n Code nodes run in an external task runner where $helpers is not defined — discovered when attempting to call Drive API from inside a Code node.</td>
+        <td>n8n Code nodes run in an external task runner where $helpers is not defined. Discovered when attempting to call Drive API from inside a Code node.</td>
         <td class="fix-col">Replaced Code node API call with a dedicated HTTP Request node using predefined OAuth2 credential type, which handles token injection automatically.</td>
       </tr>
     </tbody>
@@ -496,12 +496,12 @@ Output:
 <!-- PIPELINE IN ACTION -->
 <section>
   <h2>Pipeline in Action</h2>
-  <p class="section-sub">Real output from a live test run — Turkish birth certificate processed end-to-end.</p>
+  <p class="section-sub">Real output from a live test run. Turkish birth certificate processed end-to-end.</p>
 
   <div style="display:flex;flex-direction:column;gap:12px;">
-    <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/workflow.png" style="color:#38bdf8">→ View Full Workflow Screenshot</a></strong> — Complete n8n canvas showing all pipeline stages.</p>
-    <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/review-email-v2.png" style="color:#38bdf8">→ View Review Email Screenshot</a></strong> — Reviewer receives email with document details, flagged terms, and a form link. Pipeline fully suspended at zero compute cost until they respond.</p>
-    <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/completion-email-v2.png" style="color:#38bdf8">→ View Completion Email Screenshot</a></strong> — On approval, certified Google Doc assembled and delivered. Certificate ID, reviewer name, language pair, and glossary terms all logged automatically.</p>
+    <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/workflow.png" style="color:#38bdf8">→ View Full Workflow Screenshot</a></strong>. Complete n8n canvas showing all pipeline stages.</p>
+    <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/review-email-v2.png" style="color:#38bdf8">→ View Review Email Screenshot</a></strong>. Reviewer receives email with document details, flagged terms, and a form link. Pipeline fully suspended at zero compute cost until they respond.</p>
+    <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/completion-email-v2.png" style="color:#38bdf8">→ View Completion Email Screenshot</a></strong>. On approval, certified Google Doc assembled and delivered. Certificate ID, reviewer name, language pair, and glossary terms all logged automatically.</p>
   </div>
 </section>
 
@@ -539,14 +539,14 @@ Output:
     <strong>Nodes:</strong> Schedule Trigger → Fetch Waiting Executions → Filter Stale Reviews → Is Escalation? → Send Escalation Email / Send Reminder Email
   </div>
 
-  <p style="margin-top:20px;font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/sla-monitor-workflow.png" style="color:#38bdf8">→ View SLA Monitor Workflow Screenshot</a></strong> — Companion workflow canvas showing all 5 nodes.</p>
+  <p style="margin-top:20px;font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/sla-monitor-workflow.png" style="color:#38bdf8">→ View SLA Monitor Workflow Screenshot</a></strong>. Companion workflow canvas showing all 5 nodes.</p>
 </section>
 
 <hr class="divider">
 
 <!-- BUSINESS ANALYSIS -->
 <section>
-  <h2>Business Analysis — Simplicity vs. Privacy</h2>
+  <h2>Business Analysis: Simplicity vs. Privacy</h2>
   <p class="section-sub">The 1-page analysis: why the tokenization architecture was the right call for a legal translation firm.</p>
 
   <div class="two-col">
@@ -554,7 +554,7 @@ Output:
       <h3>Simple Architecture (no tokenization)</h3>
       <ul>
         <li>Send raw scanned PDF directly to GPT-4o</li>
-        <li>Faster to build — 2-3 nodes instead of 8</li>
+        <li>Faster to build. 2-3 nodes nodes instead of 8</li>
         <li>No mapping/restore logic</li>
         <li>Client PII stored on OpenAI servers</li>
         <li>Risk: GDPR / attorney-client privilege violations</li>
@@ -569,7 +569,7 @@ Output:
         <li>Token map lives only in execution memory</li>
         <li>Glossary grows with every document</li>
         <li>Human review ensures legal accountability</li>
-        <li>Scales to any language pair — swap the prompt</li>
+        <li>Scales to any language pair. Swap the prompt</li>
       </ul>
     </div>
   </div>
