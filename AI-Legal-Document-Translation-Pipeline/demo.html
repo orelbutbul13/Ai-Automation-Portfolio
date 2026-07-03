@@ -549,6 +549,25 @@ Output:
   <div class="highlight" style="margin-top:24px">
     <strong>Nodes:</strong> Schedule Trigger → Fetch Waiting Executions → Filter Stale Reviews → Is Escalation? → Send Escalation Email / Send Reminder Email
   </div>
+
+  <div style="margin-top:32px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+      <div>
+        <div style="font-size:0.8rem;font-weight:700;color:#7dd3fc;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Workflow 1 — Main Pipeline</div>
+        <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;overflow:hidden;">
+          <img src="screenshots/workflow.png" alt="Main pipeline workflow" style="width:100%;display:block;">
+        </div>
+        <p style="font-size:0.78rem;color:#64748b;margin-top:8px;">The 7-stage main pipeline. Handles the full translation lifecycle from scanned PDF intake to certified Google Doc delivery.</p>
+      </div>
+      <div>
+        <div style="font-size:0.8rem;font-weight:700;color:#f59e0b;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Workflow 2 — SLA Monitor</div>
+        <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;overflow:hidden;">
+          <img src="screenshots/sla-monitor-workflow.png" alt="SLA Monitor workflow" style="width:100%;display:block;">
+        </div>
+        <p style="font-size:0.78rem;color:#64748b;margin-top:8px;">The companion monitoring workflow. Runs every 4 hours independently. Watches the main pipeline's human review queue and escalates if no response.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <hr class="divider">
