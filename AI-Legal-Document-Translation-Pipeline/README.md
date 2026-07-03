@@ -26,7 +26,11 @@ Drive Trigger → Download → Hash Check → Move to Processing
 → GPT-4o PII Detection → Parse Output → Tokenize
 → Glossary Lookup → Build Translation Input → GPT-4o Translation
 → Parse Output → Save New Glossary Terms
-→ Detokenize → Send Review Notification → Wait Node
+→ Detokenize → Send Review Notification → Wait Node (pipeline suspended)
+                                                 ↑
+                                     SLA Monitor (every 4h)
+                                     Reminder at 4h waiting
+                                     Escalation at 24h waiting
 → Apply Review Decision
     Approved  → Assemble Certificate → Drive Upload → Log + Archive → Send Completion Email
     Rejected  → Move to Needs-Review → Notify Team
