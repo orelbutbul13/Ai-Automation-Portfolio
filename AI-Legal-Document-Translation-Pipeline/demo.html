@@ -148,6 +148,9 @@
       <div class="stage-icon s2">👤</div>
       <div class="stage-label">5. Human Review</div>
       <div class="stage-sub">Email notification · n8n form pauses pipeline · reviewer approves or rejects</div>
+      <div style="margin-top:8px;background:#1a1000;border:1px solid #92400e;border-radius:8px;padding:6px 10px;font-size:0.65rem;color:#fbbf24;text-align:center;line-height:1.5;">
+        ↑ SLA Monitor<br>4h reminder · 24h escalation
+      </div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
@@ -513,6 +516,41 @@ Output:
       </div>
       <p style="font-size:0.78rem;color:#64748b;margin-top:8px;">On approval, the certified Google Doc is assembled and delivered. Certificate ID, reviewer name, language pair, and glossary terms added — all logged automatically.</p>
     </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SLA MONITOR -->
+<section>
+  <h2>Review SLA Monitor</h2>
+  <p class="section-sub">A companion workflow that watches the human review queue and escalates if no one responds.</p>
+
+  <div class="two-col">
+    <div class="analysis-box">
+      <h3>What it does</h3>
+      <ul>
+        <li>Runs every 4 hours on its own schedule</li>
+        <li>Calls the n8n internal API to find all paused executions</li>
+        <li>Filters for executions waiting at the Human Review node</li>
+        <li>Sends a reminder email after 4 hours with a direct form link</li>
+        <li>Sends an escalation email after 24 hours if still unresolved</li>
+      </ul>
+    </div>
+    <div class="analysis-box">
+      <h3>Why it is a separate workflow</h3>
+      <ul>
+        <li>The main pipeline is fully suspended at the Wait node</li>
+        <li>Suspended executions cannot run any code or send emails</li>
+        <li>The SLA Monitor runs independently on its own trigger</li>
+        <li>It finds paused executions via API without interfering with them</li>
+        <li>Without it, a stuck document would sit silently with no alert</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top:24px">
+    <strong>Nodes:</strong> Schedule Trigger → Fetch Waiting Executions → Filter Stale Reviews → Is Escalation? → Send Escalation Email / Send Reminder Email
   </div>
 </section>
 
