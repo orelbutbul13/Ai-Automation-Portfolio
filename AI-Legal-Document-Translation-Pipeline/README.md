@@ -66,6 +66,10 @@ Self-hosted n8n means all client documents stay on local infrastructure with no 
 
 ## Pipeline Screenshots
 
+**[→ View Workflow Screenshot](screenshots/workflow.png)** Full n8n canvas showing all pipeline stages.
+
+**[→ View SLA Monitor Screenshot](screenshots/sla-monitor-workflow.png)** Companion workflow that monitors the human review queue and escalates at 4h and 24h.
+
 **[→ View Review Email Screenshot](screenshots/review-email-v2.png)** Pipeline paused waiting for human decision.
 
 **[→ View Completion Email Screenshot](screenshots/completion-email-v2.png)** Certified translation approved and delivered.
