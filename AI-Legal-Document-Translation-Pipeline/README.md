@@ -87,11 +87,14 @@ Self-hosted n8n means all client documents stay on local infrastructure with no 
 
 Each of the three reviewer decisions verified end-to-end during a QA pass covering 3 languages and 3 document types:
 
-**[→ Approve](screenshots/review-decision-approve.png)** — Turkish divorce decree, approved as-is. [Final certificate](https://drive.google.com/file/d/1_8NP24xB2Yz-AJaO4OoTBbdtLkd4x0N0uBhECoLWewY/view) · [PDF](https://drive.google.com/file/d/1Yuu1DEXswiVXW2ynPgAuMZ7XOkSCzqVR/view)
+**Approve** — Turkish divorce decree, approved as-is.
+[→ Review request](screenshots/review-decision-approve-review.png) · [→ Approved](screenshots/review-decision-approve.png) · [Final certificate](https://drive.google.com/file/d/1TVkc7hOOAIDqienD9zO-SkDTmAcg6fWWv7Vi21yg1nE/view) · [PDF](https://drive.google.com/file/d/1dIoLrVC0Xr7elx0bQXJWlbikuiGvtc9y/view)
 
-**[→ Approve with Edits](screenshots/review-decision-approve-with-edits.png)** — Japanese birth certificate. The AI masked names as PII before translation, so restored names came back in Japanese script in the English certificate; the reviewer romanized all four names and the correction flowed straight into the final document. [Final certificate](https://drive.google.com/file/d/1Bl-IEKgqcTOdZfGMeDW6UOlbjNTzrcQ5kLBghrdqWY8/view) · [PDF](https://drive.google.com/file/d/16rh_jX79Oe_sqjRwo-MK-FofQzOUqW6q/view)
+**Approve with Edits** — Japanese birth certificate. The AI masked names as PII before translation, so restored names came back in Japanese script in the English certificate; the reviewer romanized all four names and the correction flowed straight into the final document.
+[→ Review request](screenshots/review-decision-approve-with-edits-review.png) · [→ Approved with edits](screenshots/review-decision-approve-with-edits.png) · [Final certificate](https://drive.google.com/file/d/1Bl-IEKgqcTOdZfGMeDW6UOlbjNTzrcQ5kLBghrdqWY8/view) · [PDF](https://drive.google.com/file/d/16rh_jX79Oe_sqjRwo-MK-FofQzOUqW6q/view)
 
-**[→ Reject → Retranslate → Approve](screenshots/review-decision-reject-retry.png)** — Spanish power of attorney, rejected for inconsistent terminology, automatically retranslated using the reviewer's notes, approved on second review. [Final certificate](https://drive.google.com/file/d/15cxTV1WW2C_D6xrXDr64oIa1QX_Pn8Nk73MeeXds9-c/view) · [PDF](https://drive.google.com/file/d/1a_92O1ACaj-gBZuGpuTzHrXZkjiw0s7Y/view)
+**Reject → Retranslate → Approve** — Spanish power of attorney, rejected for inconsistent terminology, automatically retranslated using the reviewer's notes, approved on second review.
+[→ Review request](screenshots/review-decision-reject-retry-review.png) · [→ Retranslation ready](screenshots/review-decision-reject-retry-retry.png) · [→ Approved](screenshots/review-decision-reject-retry.png) · [Final certificate](https://drive.google.com/file/d/15cxTV1WW2C_D6xrXDr64oIa1QX_Pn8Nk73MeeXds9-c/view) · [PDF](https://drive.google.com/file/d/1a_92O1ACaj-gBZuGpuTzHrXZkjiw0s7Y/view)
 
 ## Challenges Solved
 
