@@ -101,10 +101,10 @@
 <!-- HERO -->
 <div class="hero">
   <h1>Legal Translation, <span>Automated.</span></h1>
-  <p>An end-to-end AI pipeline that takes a scanned Turkish legal document, extracts text, protects client PII, translates with glossary consistency, routes for human review, and generates a certified translation. Fully automated in n8n.</p>
+  <p>An end-to-end AI pipeline that takes a scanned legal document in any language, extracts text, protects client PII, translates with glossary consistency, routes for human review, and generates a certified translation. Proven end-to-end on Turkish, Japanese, and Spanish documents. Fully automated in n8n.</p>
   <div class="hero-badges">
     <span class="pill">n8n Workflow Automation</span>
-    <span class="pill">GPT-4o Vision OCR</span>
+    <span class="pill">GPT-5 Vision OCR</span>
     <span class="pill">PII Tokenization</span>
     <span class="pill">Human-in-the-Loop</span>
     <span class="pill">Google Drive + Gmail</span>
@@ -123,7 +123,7 @@
     <div class="stage">
       <div class="stage-icon s1">📄</div>
       <div class="stage-label">1. Intake & OCR</div>
-      <div class="stage-sub">Google Drive trigger · GPT-4o vision extracts text per page</div>
+      <div class="stage-sub">Google Drive trigger · GPT-5 vision extracts text per page</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
@@ -135,7 +135,7 @@
     <div class="stage">
       <div class="stage-icon s1">📚</div>
       <div class="stage-label">3. Glossary Translation</div>
-      <div class="stage-sub">Legal term lookup · GPT-4o translates TR→EN · new terms saved back</div>
+      <div class="stage-sub">Legal term lookup · GPT-5 translates in formal legal register, any language pair · new terms saved back</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
@@ -147,13 +147,13 @@
     <div class="stage">
       <div class="stage-icon s2">👤</div>
       <div class="stage-label">5. Human Review</div>
-      <div class="stage-sub">Pipeline pauses · reviewer approves or rejects · SLA Monitor follows up at 4h and 24h</div>
+      <div class="stage-sub">Pipeline pauses · reviewer approves, edits, or rejects (auto-retranslate + re-review) · SLA Monitor follows up at 4h/12h/24h/48h</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">📜</div>
       <div class="stage-label">6. Certificate Assembly</div>
-      <div class="stage-sub">HTML certificate generated · uploaded to Drive as Google Doc</div>
+      <div class="stage-sub">Docs API bordered metadata table, real branding &amp; signature, source pages embedded · DOCX + PDF via pdf.co</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
@@ -165,7 +165,7 @@
 
   <div class="stats">
     <div class="stat"><div class="stat-num">7</div><div class="stat-label">Pipeline Stages</div></div>
-    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">n8n Nodes</div></div>
+    <div class="stat"><div class="stat-num">74</div><div class="stat-label">n8n Nodes</div></div>
     <div class="stat"><div class="stat-num">0</div><div class="stat-label">PII Exposed to AI</div></div>
     <div class="stat"><div class="stat-num">1</div><div class="stat-label">Human Touchpoint</div></div>
     <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Automated Delivery</div></div>
@@ -201,7 +201,7 @@
   </div>
 
   <div class="highlight">
-    <strong>Known tradeoff:</strong> Stage 1 OCR still sends the raw scan image to GPT-4o Vision. The upgrade path for production is a self-hosted OCR (Tesseract / PaddleOCR) or a HIPAA/BAA-covered vision API — keeping all raw document data on-premises.
+    <strong>Known tradeoff:</strong> Stage 1 OCR still sends the raw scan image to GPT-5 Vision. The upgrade path for production is a self-hosted OCR (Tesseract / PaddleOCR) or a HIPAA/BAA-covered vision API — keeping all raw document data on-premises.
   </div>
 </section>
 
@@ -231,14 +231,14 @@
       <g transform="translate(310,20)">
         <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
         <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">OCR</text>
-        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-4o Vision</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-5 Vision</text>
         <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">extracts text/page</text>
       </g>
       <line x1="430" y1="45" x2="460" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
       <g transform="translate(460,20)">
         <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
         <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">PII Detection</text>
-        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-4o</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-5</text>
         <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">finds names/dates</text>
       </g>
       <line x1="580" y1="45" x2="610" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
@@ -263,7 +263,7 @@
       <g transform="translate(760,140)">
         <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
         <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Translate</text>
-        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-4o</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-5</text>
         <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">any lang pair</text>
       </g>
       <line x1="760" y1="165" x2="730" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
@@ -292,14 +292,14 @@
         <rect width="110" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
         <text x="55" y="22" text-anchor="middle" fill="#94a3b8" font-size="9" font-weight="bold">Apply Review</text>
         <text x="55" y="35" text-anchor="middle" fill="#94a3b8" font-size="9">Decision</text>
-        <text x="55" y="47" text-anchor="middle" fill="#64748b" font-size="8">approve / reject</text>
+        <text x="55" y="47" text-anchor="middle" fill="#64748b" font-size="8">approve / edit / reject</text>
       </g>
       <line x1="170" y1="165" x2="140" y2="165" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
       <g transform="translate(20,140)">
         <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
         <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">Assemble</text>
         <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Certificate</text>
-        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">HTML → binary</text>
+        <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">Docs API metadata table</text>
       </g>
 
       <!-- Down arrow from Assemble to Upload -->
@@ -331,8 +331,8 @@
       <line x1="225" y1="165" x2="225" y2="360" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
       <g transform="translate(170,340)">
         <rect width="110" height="40" rx="8" fill="#2a1010" stroke="#ef4444" stroke-width="1.5"/>
-        <text x="55" y="16" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold">Reject Path</text>
-        <text x="55" y="30" text-anchor="middle" fill="#64748b" font-size="8">needs-review folder</text>
+        <text x="55" y="16" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold">Reject → Retry</text>
+        <text x="55" y="30" text-anchor="middle" fill="#64748b" font-size="8">retranslate, re-review, escalate after 1 retry</text>
       </g>
 
       <!-- Arrow markers -->
@@ -353,7 +353,7 @@
 <!-- PROMPT DOCUMENTATION -->
 <section>
   <h2>Prompt Documentation</h2>
-  <p class="section-sub">The exact system prompts sent to GPT-4o at each AI stage.</p>
+  <p class="section-sub">The exact system prompts sent to GPT-5 at each AI stage.</p>
 
   <div style="display:flex;flex-direction:column;gap:20px;">
     <div class="card">
@@ -487,6 +487,42 @@ Output:
         <td>n8n Code nodes run in an external task runner where $helpers is not defined. Discovered when attempting to call Drive API from inside a Code node.</td>
         <td class="fix-col">Replaced Code node API call with a dedicated HTTP Request node using predefined OAuth2 credential type, which handles token injection automatically.</td>
       </tr>
+      <tr>
+        <td>Certificate assembly crashed only on edited translations</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>Reviewer-pasted text from an HTML form textarea uses <code>\r\n</code> line breaks, but the Docs API collapses <code>\r\n</code> into a single character — the running index used for text-styling requests drifted out of sync and referenced a position past the real document end.</td>
+        <td class="fix-col">Normalize <code>\r\n</code> → <code>\n</code> on all reviewer-submitted text before it reaches the certificate-assembly Code node.</td>
+      </tr>
+      <tr>
+        <td>Reject path silently fell into generic error handling instead of the retry loop</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>The reject-notification email node had a literal line break inside a plain JS string expression, which is invalid syntax — the node's error-continuation output fired instead of proceeding normally.</td>
+        <td class="fix-col">Rewrote the expression using <code>\n</code> escape sequences instead of literal newlines.</td>
+      </tr>
+      <tr>
+        <td>Retry loop couldn't find the file to move, and later steps saw an incomplete pipeline object</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>A Google Sheets "append row" node returns the row it just wrote as the item's new data, discarding every other field from the incoming item — three downstream nodes were still reading fields via the now-empty <code>$json</code>.</td>
+        <td class="fix-col">Reference <code>$('Apply Review Decision').first().json</code> explicitly instead of <code>$json</code> in each downstream node that needs the original pipeline data.</td>
+      </tr>
+      <tr>
+        <td>Retry-limit check routed backwards</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>The "max retries exceeded" condition's true/false outputs were wired to the wrong branches — reaching the limit triggered another retry instead of escalating, and staying under the limit escalated instead of retrying.</td>
+        <td class="fix-col">Swapped the two output connections on the retry-limit If node.</td>
+      </tr>
+      <tr>
+        <td>Second review form never showed the retranslated text</td>
+        <td><span class="bug-sev sev-med">MED</span></td>
+        <td>The review form's comparison-table expression referenced an undefined variable, a copy-paste leftover from the first review form that was never adapted for the retry context.</td>
+        <td class="fix-col">Defined the missing variable against the correct upstream node.</td>
+      </tr>
+      <tr>
+        <td>SLA monitor sent the same reminder dozens of times</td>
+        <td><span class="bug-sev sev-med">MED</span></td>
+        <td>The monitor polled hourly and re-sent a notification every time an execution was still over a time threshold, with no memory of what had already been sent.</td>
+        <td class="fix-col">Track sent-tier state per execution in n8n workflow static data (<code>$getWorkflowStaticData</code>), so each of 4 tiers (4h/12h/24h/48h) fires exactly once.</td>
+      </tr>
     </tbody>
   </table>
 </section>
@@ -496,12 +532,49 @@ Output:
 <!-- PIPELINE IN ACTION -->
 <section>
   <h2>Pipeline in Action</h2>
-  <p class="section-sub">Real output from a live test run. Turkish birth certificate processed end-to-end.</p>
+  <p class="section-sub">Real output from live test runs across three languages and all three reviewer decisions.</p>
 
   <div style="display:flex;flex-direction:column;gap:12px;">
     <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/workflow.png" style="color:#38bdf8">→ View Full Workflow Screenshot</a></strong>. Complete n8n canvas showing all pipeline stages.</p>
     <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/review-email-v2.png" style="color:#38bdf8">→ View Review Email Screenshot</a></strong>. Reviewer receives email with document details, flagged terms, and a form link. Pipeline fully suspended at zero compute cost until they respond.</p>
     <p style="font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/completion-email-v2.png" style="color:#38bdf8">→ View Completion Email Screenshot</a></strong>. On approval, certified Google Doc assembled and delivered. Certificate ID, reviewer name, language pair, and glossary terms all logged automatically.</p>
+  </div>
+
+  <h3 style="margin-top:32px;margin-bottom:12px;color:#f1f5f9;font-size:1.05rem;">Review Decision Examples</h3>
+  <p style="font-size:0.85rem;color:#64748b;margin-bottom:16px;">Each of the three reviewer decisions verified end-to-end during a QA pass covering 3 languages and 3 document types.</p>
+
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    <div class="analysis-box">
+      <h3 style="color:#f1f5f9;">Approve — Turkish divorce decree</h3>
+      <p style="font-size:0.85rem;color:#94a3b8;margin:8px 0;">Approved as-is.</p>
+      <p style="font-size:0.85rem;color:#7dd3fc;">
+        <a href="screenshots/review-decision-approve-review.png" style="color:#38bdf8">→ Review request</a> ·
+        <a href="screenshots/review-decision-approve.png" style="color:#38bdf8">→ Approved</a> ·
+        <a href="https://drive.google.com/file/d/1TVkc7hOOAIDqienD9zO-SkDTmAcg6fWWv7Vi21yg1nE/view" style="color:#38bdf8">Final certificate</a> ·
+        <a href="https://drive.google.com/file/d/1dIoLrVC0Xr7elx0bQXJWlbikuiGvtc9y/view" style="color:#38bdf8">PDF</a>
+      </p>
+    </div>
+    <div class="analysis-box">
+      <h3 style="color:#f1f5f9;">Approve with Edits — Japanese birth certificate</h3>
+      <p style="font-size:0.85rem;color:#94a3b8;margin:8px 0;">The AI masked names as PII before translation, so restored names came back in Japanese script in the English certificate; the reviewer romanized all four names and the correction flowed straight into the final document.</p>
+      <p style="font-size:0.85rem;color:#7dd3fc;">
+        <a href="screenshots/review-decision-approve-with-edits-review.png" style="color:#38bdf8">→ Review request</a> ·
+        <a href="screenshots/review-decision-approve-with-edits.png" style="color:#38bdf8">→ Approved with edits</a> ·
+        <a href="https://drive.google.com/file/d/1Bl-IEKgqcTOdZfGMeDW6UOlbjNTzrcQ5kLBghrdqWY8/view" style="color:#38bdf8">Final certificate</a> ·
+        <a href="https://drive.google.com/file/d/16rh_jX79Oe_sqjRwo-MK-FofQzOUqW6q/view" style="color:#38bdf8">PDF</a>
+      </p>
+    </div>
+    <div class="analysis-box">
+      <h3 style="color:#f1f5f9;">Reject → Retranslate → Approve — Spanish power of attorney</h3>
+      <p style="font-size:0.85rem;color:#94a3b8;margin:8px 0;">Rejected for inconsistent terminology, automatically retranslated using the reviewer's notes, approved on second review.</p>
+      <p style="font-size:0.85rem;color:#7dd3fc;">
+        <a href="screenshots/review-decision-reject-retry-review.png" style="color:#38bdf8">→ Review request</a> ·
+        <a href="screenshots/review-decision-reject-retry-retry.png" style="color:#38bdf8">→ Retranslation ready</a> ·
+        <a href="screenshots/review-decision-reject-retry.png" style="color:#38bdf8">→ Approved</a> ·
+        <a href="https://drive.google.com/file/d/15cxTV1WW2C_D6xrXDr64oIa1QX_Pn8Nk73MeeXds9-c/view" style="color:#38bdf8">Final certificate</a> ·
+        <a href="https://drive.google.com/file/d/1a_92O1ACaj-gBZuGpuTzHrXZkjiw0s7Y/view" style="color:#38bdf8">PDF</a>
+      </p>
+    </div>
   </div>
 </section>
 
@@ -516,11 +589,11 @@ Output:
     <div class="analysis-box">
       <h3>What it does</h3>
       <ul>
-        <li>Runs every 4 hours on its own schedule</li>
+        <li>Runs hourly on its own schedule</li>
         <li>Calls the n8n internal API to find all paused executions</li>
         <li>Filters for executions waiting at the Human Review node</li>
-        <li>Sends a reminder email after 4 hours with a direct form link</li>
-        <li>Sends an escalation email after 24 hours if still unresolved</li>
+        <li>Sends exactly one notification per tier — reminders at 4h and 12h, escalations at 24h and 48h</li>
+        <li>Tracks which tiers have already fired in workflow static data, so nothing is ever resent</li>
       </ul>
     </div>
     <div class="analysis-box">
@@ -536,7 +609,7 @@ Output:
   </div>
 
   <div class="highlight" style="margin-top:24px">
-    <strong>Nodes:</strong> Schedule Trigger → Fetch Waiting Executions → Filter Stale Reviews → Is Escalation? → Send Escalation Email / Send Reminder Email
+    <strong>Nodes:</strong> Schedule Trigger → Fetch Waiting Executions → Filter Stale Reviews → Check Tier Thresholds (4h/12h/24h/48h) → Has Tier Fired? (static data lookup) → Send Reminder/Escalation Email → Mark Tier Sent
   </div>
 
   <p style="margin-top:20px;font-size:0.85rem;color:#7dd3fc"><strong><a href="screenshots/sla-monitor-workflow.png" style="color:#38bdf8">→ View SLA Monitor Workflow Screenshot</a></strong>. Companion workflow canvas showing all 5 nodes.</p>
@@ -553,7 +626,7 @@ Output:
     <div class="analysis-box">
       <h3>Simple Architecture (no tokenization)</h3>
       <ul>
-        <li>Send raw scanned PDF directly to GPT-4o</li>
+        <li>Send raw scanned PDF directly to GPT-5</li>
         <li>Faster to build. 2-3 nodes nodes instead of 8</li>
         <li>No mapping/restore logic</li>
         <li>Client PII stored on OpenAI servers</li>
@@ -589,12 +662,12 @@ Output:
     <div class="card">
       <div class="tag">ORCHESTRATION</div>
       <h3>n8n (self-hosted)</h3>
-      <p>All pipeline logic, branching, error handling, and node connections. 20+ nodes including Google Drive, Gmail, HTTP Request, Code, Wait, and If nodes.</p>
+      <p>All pipeline logic, branching, error handling, and node connections. 74 nodes including Google Drive, Gmail, HTTP Request, Code, Wait, and If nodes.</p>
     </div>
     <div class="card">
       <div class="tag">AI / LLM</div>
-      <h3>OpenAI GPT-4o</h3>
-      <p>Multimodal vision for OCR text extraction from scanned documents. Separate call for TR→EN legal translation with glossary injection and PII token preservation.</p>
+      <h3>OpenAI GPT-5</h3>
+      <p>Multimodal vision for OCR text extraction from scanned documents. Separate call for legal translation in any language pair, with glossary injection and PII token preservation.</p>
     </div>
     <div class="card">
       <div class="tag">STORAGE</div>
@@ -603,8 +676,8 @@ Output:
     </div>
     <div class="card">
       <div class="tag">DELIVERY</div>
-      <h3>Gmail + Google Docs</h3>
-      <p>Gmail for reviewer notification and completion email. Drive API multipart upload converts HTML certificate to a native Google Doc with full formatting.</p>
+      <h3>Gmail + Google Docs + pdf.co</h3>
+      <p>Gmail for reviewer notification and completion email. Docs API assembles the certificate (bordered metadata table, real branding, signature, embedded source pages) as a native Google Doc. pdf.co converts it to DOCX and PDF for delivery.</p>
     </div>
   </div>
 </section>
