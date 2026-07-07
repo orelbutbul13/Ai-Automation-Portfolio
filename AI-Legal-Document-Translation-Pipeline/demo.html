@@ -369,7 +369,9 @@ Rules:
 2. DETECT PAGE BOUNDARIES. Return one entry per page with pageNumber, text, and
    flaggedElements (stamps, seals, handwritten annotations, watermarks).
 3. FLAG special elements. Don't silently drop stamps or handwritten dates.
-4. Return ONLY valid JSON. No markdown fences.
+4. Mark illegible text inline as [ILLEGIBLE] in addition to flagging it, so reviewers
+   see exactly where meaning was lost.
+5. Return ONLY valid JSON. No markdown fences.
 
 Output format:
 {
