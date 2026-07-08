@@ -30,11 +30,27 @@
 
   /* PIPELINE FLOW */
   .pipeline { display: flex; align-items: flex-start; gap: 0; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
-  .stage { display: flex; flex-direction: column; align-items: center; min-width: 120px; max-width: 140px; }
+  .stage { display: flex; flex-direction: column; align-items: center; min-width: 120px; max-width: 140px; position: relative; cursor: help; }
   .stage-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 8px; }
   .stage-label { font-size: 0.72rem; font-weight: 600; color: #cbd5e1; text-align: center; line-height: 1.3; }
   .stage-sub { font-size: 0.65rem; color: #64748b; text-align: center; margin-top: 3px; }
   .arrow { color: #334155; font-size: 1.5rem; margin: 0 2px; padding-top: 14px; }
+  .stage-tooltip {
+    visibility: hidden; opacity: 0; transition: opacity 0.18s ease;
+    position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+    width: 260px; background: #0c1a2e; border: 1px solid #0ea5e9; border-radius: 10px;
+    padding: 14px 16px; font-size: 0.74rem; color: #cbd5e1; line-height: 1.6;
+    text-align: left; z-index: 60; box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+  }
+  .stage-tooltip::after {
+    content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 7px solid transparent; border-top-color: #0ea5e9;
+  }
+  .stage:hover .stage-tooltip { visibility: visible; opacity: 1; }
+  .stage:first-child .stage-tooltip { left: 0; transform: translateX(0); }
+  .stage:first-child .stage-tooltip::after { left: 28px; transform: translateX(0); }
+  .stage:last-child .stage-tooltip { left: auto; right: 0; transform: translateX(0); }
+  .stage:last-child .stage-tooltip::after { left: auto; right: 28px; transform: translateX(0); }
   .s1 { background: #1e3a5f; }
   .s2 { background: #1a3348; }
   .s3 { background: #1e293b; border: 1px solid #334155; }
@@ -124,42 +140,49 @@
       <div class="stage-icon s1">📄</div>
       <div class="stage-label">1. Intake & OCR</div>
       <div class="stage-sub">Google Drive trigger · GPT-5 vision extracts text per page</div>
+      <div class="stage-tooltip">A Google Drive trigger watches the Inbox folder. Every new file gets a SHA-256 fingerprint checked against a log, so the same document is never processed twice. GPT-5 Vision then reads the scan page by page in exact reading order, flagging stamps, seals, and handwriting, and marking anything unreadable as [ILLEGIBLE].</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">🔒</div>
       <div class="stage-label">2. PII Tokenization</div>
       <div class="stage-sub">Names/dates/addresses replaced with [PERSON_1] tokens before AI sees them</div>
+      <div class="stage-tooltip">Before any translation call, GPT-5 finds every name, address, phone number, and ID number and replaces each with a stable code like [PERSON_1]. The lookup connecting codes to real values lives only in execution memory, it's never written to a file or log. The translation model only ever sees the codes.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">📚</div>
       <div class="stage-label">3. Glossary Translation</div>
       <div class="stage-sub">Legal term lookup · GPT-5 translates in formal legal register, any language pair · new terms saved back</div>
+      <div class="stage-tooltip">Known legal term translations are pulled from a Glossary sheet and injected into the prompt, so terminology stays consistent across every document in a case. GPT-5 translates in formal legal register, preserves the placeholder tokens verbatim, and flags any term it wasn't sure about. New terms get saved back to the glossary automatically.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">🔓</div>
       <div class="stage-label">4. Detokenization</div>
       <div class="stage-sub">Real names restored into translated text · token map discarded</div>
+      <div class="stage-tooltip">Once translation is done, the placeholder codes are swapped back to the real values from the in-memory map. The final text reads completely normally, real client details restored, then that lookup map is permanently deleted.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s2">👤</div>
       <div class="stage-label">5. Human Review</div>
       <div class="stage-sub">Pipeline pauses · reviewer approves, edits, or rejects (auto-retranslate + re-review) · SLA Monitor follows up at 4h/12h/24h/48h</div>
+      <div class="stage-tooltip">The pipeline pauses completely at zero cost using an n8n Wait node until a reviewer acts: Approve, Approve with Edits, or Reject (which triggers an automatic retranslation and a second review round, escalating to manual translation if rejected again). A companion SLA Monitor workflow checks hourly and sends one reminder per tier at 4h/12h/24h/48h.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">📜</div>
       <div class="stage-label">6. Certificate Assembly</div>
       <div class="stage-sub">Docs API bordered metadata table, real branding &amp; signature, source pages embedded · DOCX + PDF via pdf.co</div>
+      <div class="stage-tooltip">The certified document is built through the Google Docs API: a bordered metadata table with certificate ID, date, and language pair, the firm's real branding and signature images, and the original scanned pages embedded for reference.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">✅</div>
       <div class="stage-label">7. Delivery</div>
       <div class="stage-sub">Completion email · Google Doc link · source archived · log updated</div>
+      <div class="stage-tooltip">The certificate is exported to DOCX and PDF via pdf.co, the source file is archived, the processed log is updated, and a completion email goes out with links to all three formats.</div>
     </div>
   </div>
 
