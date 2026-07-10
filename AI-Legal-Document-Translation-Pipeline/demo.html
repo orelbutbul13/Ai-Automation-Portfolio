@@ -547,6 +547,12 @@ Output:
         <td>The monitor polled hourly and re-sent a notification every time an execution was still over a time threshold, with no memory of what had already been sent.</td>
         <td class="fix-col">Track sent-tier state per execution in n8n workflow static data (<code>$getWorkflowStaticData</code>), so each of 4 tiers (4h/12h/24h/48h) fires exactly once.</td>
       </tr>
+      <tr>
+        <td>Raw document image and unredacted PII reached a third-party AI service before tokenization</td>
+        <td><span class="bug-sev sev-high">HIGH</span></td>
+        <td>OCR (GPT-5 Vision) and PII detection (GPT-5) both ran on the cloud model — the raw scanned image and unredacted names/addresses/ID numbers reached a third-party provider before any redaction happened.</td>
+        <td class="fix-col">Replaced both steps with fully local processing: Tesseract for OCR, a local Ollama model for PII detection. GPT-5 now only ever sees text after tokenization.</td>
+      </tr>
     </tbody>
   </table>
 </section>
