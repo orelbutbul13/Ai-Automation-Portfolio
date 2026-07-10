@@ -1,6 +1,6 @@
 # AI Legal Document Translation Pipeline
 
-End-to-end automation for certified legal document translation built in n8n with GPT-5 Vision, PII tokenization, glossary-aware AI translation, human-in-the-loop review (with edit and reject/retranslate paths), and automated certificate delivery as a formatted Google Doc, DOCX, and PDF.
+End-to-end automation for certified legal document translation built in n8n with local OCR, local PII tokenization, glossary-aware AI translation, human-in-the-loop review (with edit and reject/retranslate paths), and automated certificate delivery as a formatted Google Doc, DOCX, and PDF.
 
 Client project for a US-based certified legal translation firm (NDA).
 
@@ -10,13 +10,13 @@ Client project for a US-based certified legal translation firm (NDA).
 
 ## Overview
 
-This pipeline replaces a manual certified translation process. A scanned legal document arrives in a Google Drive folder. GPT-5 Vision extracts the text. A PII detection step replaces all client names, addresses, and ID numbers with placeholder tokens before any translation call, so the AI model never sees real client identities. The tokenized text is translated in formal legal register using a glossary of known term pairs, which grows with every document processed. Execution then pauses at a human review step, where a certified reviewer chooses one of three decisions via an email form: **Approve** as-is, **Approve with Edits** (paste a corrected translation, which flows straight into the final certificate), or **Reject** with correction notes, which triggers an automatic retranslation incorporating those notes and a second review round before falling back to manual escalation if rejected again.
+This pipeline replaces a manual certified translation process. A scanned legal document arrives in a Google Drive folder. A local OCR engine (Tesseract) extracts the text entirely on local infrastructure — the raw document image never reaches any third-party AI service. A local PII detection step (a locally-run model via Ollama) then replaces all client names, addresses, and ID numbers with placeholder tokens before any translation call, so the cloud translation model never sees real client identities or the raw document. The tokenized text is translated in formal legal register using a glossary of known term pairs, which grows with every document processed. Execution then pauses at a human review step, where a certified reviewer chooses one of three decisions via an email form: **Approve** as-is, **Approve with Edits** (paste a corrected translation, which flows straight into the final certificate), or **Reject** with correction notes, which triggers an automatic retranslation incorporating those notes and a second review round before falling back to manual escalation if rejected again.
 
 On approval, the translation is assembled into a certified document: a bordered metadata table (certificate ID, language pair, document type, hash, reviewer) built directly via the Google Docs API, the firm's real header/footer/signature branding images, the original scanned source pages embedded for reference, and a certification statement — delivered as a Google Doc, DOCX, and PDF, with the source file archived and a processed-document log updated automatically.
 
 ## Business Problem
 
-Certified legal translation firms handle documents that demand accuracy at a level where a single inconsistent term can cause a court filing to be rejected. A case may span 10 or more documents: a divorce decree, death certificate, marriage certificate, bank statements. Every one must use identical legal terminology. Manual translation is slow, inconsistency across translators is a real risk, and sending raw client documents containing passport numbers and home addresses to third-party AI services raises serious compliance concerns. This pipeline addresses all three.
+Certified legal translation firms handle documents that demand accuracy at a level where a single inconsistent term can cause a court filing to be rejected. A case may span 10 or more documents: a divorce decree, death certificate, marriage certificate, bank statements. Every one must use identical legal terminology. Manual translation is slow, inconsistency across translators is a real risk, and sending raw client documents containing passport numbers and home addresses to third-party AI services raises serious compliance concerns. This pipeline addresses all three: OCR and PII detection both run on local models, so the raw document and unredacted personal data never leave local infrastructure — only already-tokenized text is ever sent to a cloud AI service, and only for translation.
 
 ## Pipeline Architecture
 
@@ -24,8 +24,8 @@ Certified legal translation firms handle documents that demand accuracy at a lev
 
 ```
 Drive Trigger → Download → Hash Check → Move to Processing
-→ GPT-5 Vision OCR → Parse Output
-→ GPT-5 PII Detection → Parse Output → Tokenize
+→ Local OCR (Tesseract) → Parse Output
+→ Local PII Detection (Ollama) → Parse Output → Tokenize
 → Glossary Lookup → Build Translation Input → GPT-5 Translation
 → Parse Output → Save New Glossary Terms
 → Detokenize → Send Review Notification → Wait Node (pipeline suspended)
@@ -46,15 +46,15 @@ Drive Trigger → Download → Hash Check → Move to Processing
 
 The pipeline has three visual sections in n8n. The top row is the main happy path. The right section handles the reviewer reject-and-retranslate loop, including a second review step. The bottom row is the error branch that every node routes to on failure. A separate companion workflow (SLA Monitor) polls hourly for stuck reviews and escalates through four tiers without ever repeating a notification.
 
-## The Three AI Prompts
+## Local Processing + Two AI Prompts
 
-**Prompt 1: Document Reading**
-Sent to GPT-5 Vision with the scanned document image. Instructs the model to extract all text in reading order, detect page boundaries, and explicitly flag stamps, seals, and handwritten annotations rather than silently dropping them. Returns structured JSON per page. Works on any source language without configuration changes.
+**Stage 1: Document Reading (local, no AI)**
+Runs entirely on local infrastructure via Tesseract OCR — the scanned document image is never sent to any AI model or third-party service. Extracts all text in reading order and detects page boundaries. Works on any of 8 supported source languages without configuration changes. Trade-off versus a vision-LLM approach: stamps, seals, and handwritten annotations aren't visually flagged as distinct elements, though illegible/garbled regions still surface as OCR errors for review.
 
-**Prompt 2: PII Detection**
-Sent on the extracted text before any translation call. Identifies every name, address, phone number, ID number, date of birth, and case number. Returns a structured entity list with a stable sequential token assigned to each value. The same name always receives the same token across all pages. A Code node performs the actual substitution and the token map lives only in execution memory, never written to any file or log.
+**Prompt 1: PII Detection (local, via Ollama)**
+Runs on a locally-hosted model (Ollama), not sent to any external AI provider, on the extracted text before any translation call. Identifies every name, address, phone number, ID number, date of birth, and case number, and also classifies the source language and document type (work a vision model would otherwise have needed to do). Returns a structured entity list with a stable sequential token assigned to each value. The same name always receives the same token across all pages. A Code node performs the actual substitution and the token map lives only in execution memory, never written to any file or log.
 
-**Prompt 3: Legal Translation**
+**Prompt 2: Legal Translation**
 Sent on the tokenized text with glossary term pairs injected. Instructs the model to produce a complete translation without summarizing or omitting anything, preserve all placeholder tokens verbatim, use formal legal register appropriate for court filings, follow the injected glossary terms exactly, and flag any term where no established legal equivalent exists. Returns the translated pages, a list of flagged terms, and any new glossary terms to be saved back to the sheet.
 
 ## Tech Stack
@@ -62,8 +62,9 @@ Sent on the tokenized text with glossary term pairs injected. Instructs the mode
 | Layer | Tool |
 |---|---|
 | Orchestration | n8n (self-hosted) |
-| OCR | OpenAI GPT-5 Vision |
-| PII Detection and Translation | OpenAI GPT-5 |
+| OCR | Tesseract (local, no external AI call) |
+| PII Detection | Ollama (local model, no external AI call) |
+| Translation | OpenAI GPT-5 (tokenized text only) |
 | Document Intake and Output | Google Drive API |
 | Certificate Assembly | Google Docs API (bordered metadata table, inline images, batchUpdate) |
 | DOCX/PDF Conversion | pdf.co |
@@ -111,6 +112,7 @@ Each of the three reviewer decisions verified end-to-end during a QA pass coveri
 | Retry-limit check routed backwards | The "max retries exceeded" condition's true/false outputs were wired to the wrong branches — reaching the limit triggered another retry instead of escalating, and staying under the limit escalated instead of retrying | Swapped the two output connections on the retry-limit If node |
 | Second review form never showed the retranslated text | The review form's comparison-table expression referenced an undefined variable, a copy-paste leftover from the first review form that was never adapted for the retry context | Defined the missing variable against the correct upstream node |
 | SLA monitor sent the same reminder dozens of times | The monitor polled hourly and re-sent a notification every time an execution was still over a time threshold, with no memory of what had already been sent | Track sent-tier state per execution in n8n workflow static data (`$getWorkflowStaticData`), so each of 4 tiers (4h/12h/24h/48h) fires exactly once |
+| Raw document image and unredacted PII reached a third-party AI service before tokenization | OCR (GPT-5 Vision) and PII detection (GPT-5) both ran on the cloud model — the raw scanned image and unredacted names/addresses/ID numbers reached a third-party provider before any redaction happened | Replaced both steps with fully local processing: Tesseract for OCR, a local Ollama model for PII detection. GPT-5 now only ever sees text after tokenization |
 
 ## QA Validation
 
@@ -126,7 +128,7 @@ Every run correctly auto-detected source language and document type from real do
 
 ## Key Outcomes
 
-Full pipeline from scanned PDF to certified Google Doc, DOCX, and PDF with zero manual steps in the standard approval path. Client PII is never exposed to the translation model, enforced by the architecture rather than by trust or policy. The glossary compounds in quality with every document processed, automatically enforcing terminology consistency across every document in a case file. Any language pair is supported with no configuration changes, proven across 3 languages during QA. A full reject-and-retranslate loop lets a reviewer send a translation back with correction notes and get a revised version for a second look, with automatic escalation to manual translation if the retry is rejected too. Every failure is caught, logged, and escalated. Nothing fails silently.
+Full pipeline from scanned PDF to certified Google Doc, DOCX, and PDF with zero manual steps in the standard approval path. Client PII is never exposed to any third-party AI service — OCR and PII detection both run on local models, so the cloud translation model only ever sees tokenized placeholders, enforced by the architecture rather than by trust or policy. The glossary compounds in quality with every document processed, automatically enforcing terminology consistency across every document in a case file. Any language pair is supported with no configuration changes, proven across 3 languages during QA. A full reject-and-retranslate loop lets a reviewer send a translation back with correction notes and get a revised version for a second look, with automatic escalation to manual translation if the retry is rejected too. Every failure is caught, logged, and escalated. Nothing fails silently.
 
 ## Skills Demonstrated
 

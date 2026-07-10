@@ -120,7 +120,7 @@
   <p>An end-to-end AI pipeline that takes a scanned legal document in any language, extracts text, protects client PII, translates with glossary consistency, routes for human review, and generates a certified translation. Proven end-to-end on Turkish, Japanese, and Spanish documents. Fully automated in n8n.</p>
   <div class="hero-badges">
     <span class="pill">n8n Workflow Automation</span>
-    <span class="pill">GPT-5 Vision OCR</span>
+    <span class="pill">Local OCR + Local PII Detection</span>
     <span class="pill">PII Tokenization</span>
     <span class="pill">Human-in-the-Loop</span>
     <span class="pill">Google Drive + Gmail</span>
@@ -139,15 +139,15 @@
     <div class="stage">
       <div class="stage-icon s1">📄</div>
       <div class="stage-label">1. Intake & OCR</div>
-      <div class="stage-sub">Google Drive trigger · GPT-5 vision extracts text per page</div>
-      <div class="stage-tooltip">A Google Drive trigger watches the Inbox folder. Every new file gets a SHA-256 fingerprint checked against a log, so the same document is never processed twice. GPT-5 Vision then reads the scan page by page in exact reading order, flagging stamps, seals, and handwriting, and marking anything unreadable as [ILLEGIBLE].</div>
+      <div class="stage-sub">Google Drive trigger · local Tesseract OCR extracts text per page, no AI call</div>
+      <div class="stage-tooltip">A Google Drive trigger watches the Inbox folder. Every new file gets a SHA-256 fingerprint checked against a log, so the same document is never processed twice. A local Tesseract OCR engine then reads the scan page by page in exact reading order — the raw document image never leaves local infrastructure or reaches any AI service.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
       <div class="stage-icon s1">🔒</div>
       <div class="stage-label">2. PII Tokenization</div>
       <div class="stage-sub">Names/dates/addresses replaced with [PERSON_1] tokens before AI sees them</div>
-      <div class="stage-tooltip">Before any translation call, GPT-5 finds every name, address, phone number, and ID number and replaces each with a stable code like [PERSON_1]. The lookup connecting codes to real values lives only in execution memory, it's never written to a file or log. The translation model only ever sees the codes.</div>
+      <div class="stage-tooltip">Before any translation call, a locally-run model (Ollama) finds every name, address, phone number, and ID number — and classifies the source language and document type — then a Code node replaces each PII value with a stable code like [PERSON_1]. Nothing in this step is sent to any external AI service. The lookup connecting codes to real values lives only in execution memory, it's never written to a file or log. The cloud translation model only ever sees the codes.</div>
     </div>
     <div class="arrow">›</div>
     <div class="stage">
@@ -215,16 +215,16 @@
     <div class="analysis-box">
       <h3>The Tokenization Solution</h3>
       <ul>
-        <li>Stage 1 (OCR) sees raw scan. Unavoidable for text extraction</li>
+        <li>Stage 1 (OCR) and Stage 2 (PII detection) both run on local models — the raw scan and unredacted text never reach any third-party AI service</li>
         <li>Stage 2 replaces all PII with stable tokens before translation</li>
-        <li>Translation AI only sees [PERSON_1], [DATE_1], [ADDRESS_1]</li>
+        <li>Translation AI (GPT-5) only ever sees [PERSON_1], [DATE_1], [ADDRESS_1]</li>
         <li>Stage 4 restores real values from an in-memory map that is then discarded</li>
       </ul>
     </div>
   </div>
 
   <div class="highlight">
-    <strong>Known tradeoff:</strong> Stage 1 OCR still sends the raw scan image to GPT-5 Vision. The upgrade path for production is a self-hosted OCR (Tesseract / PaddleOCR) or a HIPAA/BAA-covered vision API — keeping all raw document data on-premises.
+    <strong>Fixed:</strong> An earlier version of this pipeline sent the raw scan image to GPT-5 Vision for OCR, and the unredacted extracted text to GPT-5 for PII detection — meaning a third-party AI service saw client PII before any redaction happened. Both steps now run entirely on local infrastructure: Tesseract for OCR, a locally-hosted model via Ollama for PII detection. GPT-5 is only ever used for translation, and only ever sees already-tokenized text.
   </div>
 </section>
 
@@ -254,14 +254,14 @@
       <g transform="translate(310,20)">
         <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
         <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">OCR</text>
-        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-5 Vision</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Tesseract (local)</text>
         <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">extracts text/page</text>
       </g>
       <line x1="430" y1="45" x2="460" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
       <g transform="translate(460,20)">
         <rect width="120" height="50" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5"/>
         <text x="60" y="20" text-anchor="middle" fill="#7dd3fc" font-size="9" font-weight="bold">PII Detection</text>
-        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">GPT-5</text>
+        <text x="60" y="33" text-anchor="middle" fill="#7dd3fc" font-size="9">Ollama (local)</text>
         <text x="60" y="46" text-anchor="middle" fill="#64748b" font-size="8">finds names/dates</text>
       </g>
       <line x1="580" y1="45" x2="610" y2="45" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
@@ -376,47 +376,46 @@
 <!-- PROMPT DOCUMENTATION -->
 <section>
   <h2>Prompt Documentation</h2>
-  <p class="section-sub">The exact system prompts sent to GPT-5 at each AI stage.</p>
+  <p class="section-sub">Stage 1 is deterministic local OCR (no AI prompt). Stages 2 and 3 are AI prompts — Stage 2 runs on a local model, Stage 3 on GPT-5.</p>
 
   <div style="display:flex;flex-direction:column;gap:20px;">
     <div class="card">
-      <div class="tag">STAGE 1: OCR / TEXT EXTRACTION</div>
-      <h3>System Prompt: Extract Document Text</h3>
-      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a document extraction specialist for a certified legal translation pipeline.
-You process scanned legal documents (court orders, certificates, transcripts,
-affidavits) in ANY source language. Never assume a specific language pair.
+      <div class="tag">STAGE 1: OCR / TEXT EXTRACTION (LOCAL — NO AI)</div>
+      <h3>Tesseract OCR, no system prompt</h3>
+      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">No AI model is involved in this stage. A PDF page is rasterized (pdftoppm)
+and read by Tesseract, a traditional local OCR engine, entirely on local
+infrastructure — the document image never reaches any AI service.
 
-Rules:
-1. PRESERVE READING ORDER. Extract text top-to-bottom, left-to-right exactly as
-   a human reader would. Never reorder, summarize, or omit.
-2. DETECT PAGE BOUNDARIES. Return one entry per page with pageNumber, text, and
-   flaggedElements (stamps, seals, handwritten annotations, watermarks).
-3. FLAG special elements. Don't silently drop stamps or handwritten dates.
-4. Mark illegible text inline as [ILLEGIBLE] in addition to flagging it, so reviewers
-   see exactly where meaning was lost.
-5. Return ONLY valid JSON. No markdown fences.
+Language packs loaded: eng, tur, jpn, spa, fra, deu, por, heb.
 
 Output format:
 {
-  "documentType": "birth_certificate | divorce_decree | transcript | other",
-  "detectedLanguage": "ISO 639-1 code",
   "pageCount": N,
-  "pages": [{ "pageNumber": 1, "text": "...", "flaggedElements": [] }]
-}</pre>
+  "pages": [{ "pageNumber": 1, "text": "..." }]
+}
+
+Trade-off vs. a vision-LLM: stamps/seals/handwriting aren't visually
+flagged as distinct elements (flaggedElements is always empty).
+detectedLanguage and documentType are classified in Stage 2 instead,
+since Tesseract itself has no language/document understanding.</pre>
     </div>
 
     <div class="card">
-      <div class="tag">STAGE 2: PII DETECTION</div>
-      <h3>System Prompt: Detect PII</h3>
-      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">You are a PII detector for a certified legal translation pipeline that must protect
-privacy before any text leaves this system for translation. You work with documents
-in ANY language.
+      <div class="tag">STAGE 2: PII DETECTION (LOCAL — OLLAMA)</div>
+      <h3>System Prompt: Detect PII + Classify</h3>
+      <pre style="background:#0f172a;color:#7dd3fc;font-size:0.75rem;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.6;">Runs on a locally-hosted model (Ollama), not sent to any external AI
+provider. You are a PII detector for a certified legal translation pipeline
+that must protect privacy before any text leaves this system for translation.
+You work with documents in ANY language.
 
-Find all PII: full names, given names, surnames, dates of birth, addresses,
-phone numbers, email addresses, ID/passport/case numbers, financial account numbers.
+Identify the source language and document type, then find all PII: full
+names, given names, surnames, dates of birth, addresses, phone numbers,
+email addresses, ID/passport/case numbers, financial account numbers.
 
 For each item return:
 {
+  "detectedLanguage": "ISO 639-1 code",
+  "documentType": "birth_certificate | divorce_decree | name_change_order | other",
   "entities": [
     { "type": "PERSON|DATE|ADDRESS|ID|PHONE|EMAIL|CASE_NUMBER",
       "value": "exact text as it appears",
@@ -662,8 +661,8 @@ Output:
     <div class="analysis-box">
       <h3>Privacy-Preserving Architecture (this build)</h3>
       <ul>
-        <li>PII tokenized before any AI call</li>
-        <li>AI model never sees real client identity</li>
+        <li>OCR and PII detection both run locally — PII tokenized before any cloud AI call</li>
+        <li>Cloud AI model (GPT-5) never sees real client identity or the raw document</li>
         <li>Token map lives only in execution memory</li>
         <li>Glossary grows with every document</li>
         <li>Human review ensures legal accountability</li>
@@ -690,9 +689,14 @@ Output:
       <p>All pipeline logic, branching, error handling, and node connections. 74 nodes including Google Drive, Gmail, HTTP Request, Code, Wait, and If nodes.</p>
     </div>
     <div class="card">
-      <div class="tag">AI / LLM</div>
+      <div class="tag">LOCAL PROCESSING</div>
+      <h3>Tesseract + Ollama</h3>
+      <p>Tesseract does OCR text extraction from scanned documents. A locally-hosted model via Ollama detects PII and classifies language/document type. Neither step calls any external AI service — the raw document and unredacted text never leave local infrastructure.</p>
+    </div>
+    <div class="card">
+      <div class="tag">AI / LLM (cloud)</div>
       <h3>OpenAI GPT-5</h3>
-      <p>Multimodal vision for OCR text extraction from scanned documents. Separate call for legal translation in any language pair, with glossary injection and PII token preservation.</p>
+      <p>Used solely for legal translation in any language pair, with glossary injection and PII token preservation. Only ever receives already-tokenized text — never the raw document or real client identities.</p>
     </div>
     <div class="card">
       <div class="tag">STORAGE</div>
